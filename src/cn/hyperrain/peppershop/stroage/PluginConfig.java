@@ -62,7 +62,7 @@ public class PluginConfig extends BaseConfig
 	public boolean limitHopper;
 
 	@Default(intValue = 0)
-	@PluginControlPanel.PresentInForm(lang = cp_use_translated_item_name)
+	@PluginControlPanel.PresentInForm(lang = cp_use_translated_item_name, conditionCallback = "ccUseItemNameTranslations")
 	public boolean useItemNameTranslations;
 
 	public PluginConfig(File file) throws FileNotFoundException
@@ -283,6 +283,12 @@ public class PluginConfig extends BaseConfig
 	{
 		return linkWithResidencePlugin || linkWithLandPlugin;
 	}
+
+	public boolean ccUseItemNameTranslations()
+	{
+		return PepperShop.ins.itemNameTranslationConfig.exists();
+	}
+
 
 	public enum InteractionWay
 	{
