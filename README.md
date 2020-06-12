@@ -2,6 +2,7 @@
 
 一个Nukkit插件,基于 [QuickShopX](https://github.com/innc11/QuickShopX) 开发,QuickShopX又是基于是由原作者 [WetABQ](https://github.com/WetABQ) 的QuickShop插件所开发而来
 
+[English Edtion](README_EN.md)
 
 ## 图片 Preview
 
@@ -30,6 +31,9 @@
 16. 修复命令补全时看起来很奇怪的文本
 17. 所有超时消息拦截被禁用，转为作为普通聊天消息处理
 18. 修复英文语言文件中的一些单词和语法问题
+
+#### 1.1
+1. 修复无法从中文世界名读取配置文件的问题
 
 ## 作者 Authors
 - [innc11](https://github.com/innc11)

@@ -16,7 +16,7 @@ public class ShopsConfig extends BaseMultiConfig
 	@Override
 	protected String getFilenameFilterRegex(String suffix)
 	{
-		return String.format("^\\w+\\%s$", suffix);
+		return String.format("^.*\\%s$", suffix);
 	}
 
 	public ShopConfig getShopsConfig(Shop shop, boolean create)
