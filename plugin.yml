@@ -1,5 +1,5 @@
 name: PepperShop
-main: cn.hyperrain.peppershop.PepperShop
+main: cn.innc11.peppershop.PepperShop
 version: "1.1"
 author: hyperrain
 api: ["1.0.0"]
