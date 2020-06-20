@@ -1,6 +1,6 @@
 # [PepperShop](https://github.com/innc11/QuickShopX)
 
-ugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://github.com/WetABQ)) 
+A plugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://github.com/WetABQ)) 
 
 ## Preview
 
