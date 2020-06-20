@@ -4,11 +4,11 @@ ugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://github
 
 ## Preview
 
-![overview](https://res.innc11.cn/peppershop/en/en_overview.png)
-![trading](https://res.innc11.cn/peppershop/en/en_trading.png)
-![cp](https://res.innc11.cn/peppershop/en/en_controlpanel.png)
-![hopper](https://res.innc11.cn/peppershop/en/en_hopper.png)
-![startup](https://res.innc11.cn/peppershop/en/en_console.png)
+![overview](https://res.innc11.cn/pictures/peppershop/en/en_overview.png)
+![trading](https://res.innc11.cn/pictures/peppershop/en/en_trading.png)
+![cp](https://res.innc11.cn/pictures/peppershop/en/en_controlpanel.png)
+![hopper](https://res.innc11.cn/pictures/peppershop/en/en_hopper.png)
+![startup](https://res.innc11.cn/pictures/peppershop/en/en_console.png)
 
 ## Change logs
 

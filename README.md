@@ -6,12 +6,12 @@
 
 ## 图片 Preview
 
-![overview](https://res.innc11.cn/peppershop/overview.png)
-![trading](https://res.innc11.cn/peppershop/trading.png)
-![cp](https://res.innc11.cn/peppershop/cp.png)
-![hopper](https://res.innc11.cn/peppershop/hopper.png)
-![chatbar](https://res.innc11.cn/peppershop/chatbar.png)
-![startup](https://res.innc11.cn/peppershop/startup.png)
+![overview](https://res.innc11.cn/pictures/peppershop/overview.png)
+![trading](https://res.innc11.cn/pictures/peppershop/trading.png)
+![cp](https://res.innc11.cn/pictures/peppershop/cp.png)
+![hopper](https://res.innc11.cn/pictures/peppershop/hopper.png)
+![chatbar](https://res.innc11.cn/pictures/peppershop/chatbar.png)
+![startup](https://res.innc11.cn/pictures/peppershop/startup.png)
 
 
 ## 更新记录 Change logs
