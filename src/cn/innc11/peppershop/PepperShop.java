@@ -4,7 +4,6 @@ import cn.innc11.peppershop.command.PluginCommand;
 import cn.innc11.peppershop.localization.ItemNameTranslationConfig;
 import cn.innc11.peppershop.stroage.ShopsConfig;
 import cn.innc11.peppershop.stroage.PluginConfig;
-import cn.hyperrain.peppershop.listener.*;
 import cn.innc11.peppershop.localization.Localization;
 import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.listener.*;

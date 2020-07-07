@@ -1,6 +1,6 @@
 name: PepperShop
 main: cn.innc11.peppershop.PepperShop
-version: "1.1"
+version: "1.2"
 author: hyperrain
 api: ["1.0.0"]
 load: POSTWORLD
