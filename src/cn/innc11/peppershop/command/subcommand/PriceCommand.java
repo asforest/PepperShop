@@ -24,7 +24,7 @@ public class PriceCommand implements SubCommand
 			if (subArgs.length == 1) {
 				if (PepperShop.isInteger(subArgs[0]))
 				{
-					Pair<Boolean, Shop> vi = PepperShop.ins.ShopInteractionListener.isValidInteraction(sender.getName());
+					Pair<Boolean, Shop> vi = PepperShop.ins.shopInteractionListener.isValidInteraction(sender.getName());
 
 					if(vi!=null)
 					{

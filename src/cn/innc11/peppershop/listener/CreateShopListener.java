@@ -163,9 +163,9 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 
 		if(creatingShopPlayers.containsKey(playerName))
 		{
-			if(PepperShop.ins.ShopInteractionListener.interactingShopHashMap.containsKey(player.getName()))
+			if(PepperShop.ins.shopInteractionListener.interactingShopHashMap.containsKey(player.getName()))
 			{
-				PepperShop.ins.ShopInteractionListener.interactingShopHashMap.remove(player.getName());
+				PepperShop.ins.shopInteractionListener.interactingShopHashMap.remove(player.getName());
 			}
 
 			if(!PepperShop.isPrice(message))

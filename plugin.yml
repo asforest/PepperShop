@@ -1,10 +1,10 @@
 name: PepperShop
 main: cn.innc11.peppershop.PepperShop
-version: "1.2"
+version: "1.3"
 author: hyperrain
 api: ["1.0.0"]
 load: POSTWORLD
 depend: ["EconomyAPI"]
-softdepend: ["Residence", "EasyAPI", "Land"]
+softdepend: ["Residence", "Land"]
 website: "https://github.com/innc11/QuickShopX"
 description: "&l&ePepperShop&r, &dMade by innc11, original author WetABQ"

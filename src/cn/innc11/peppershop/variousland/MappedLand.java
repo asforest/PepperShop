@@ -3,17 +3,17 @@ package cn.innc11.peppershop.variousland;
 import cn.smallaswater.land.lands.data.LandData;
 import cn.smallaswater.land.players.LandSetting;
 
-public class MappedLand_Small_139 extends VariousLand
+public class MappedLand extends VariousLand
 {
 	public LandData land;
 
-	public MappedLand_Small_139(LandData land)
+	public MappedLand(LandData land)
 	{
 		this.land = land;
 	}
 
 	@Override
-	public boolean hasPermission(String playerName, VariousLand.Permissions perm)
+	public boolean hasPermission(String playerName, Permissions perm)
 	{
 		boolean has = false;
 
@@ -25,13 +25,13 @@ public class MappedLand_Small_139 extends VariousLand
 				has = placePerm && breakPerm;
 				break;
 
-			//			case placing:
-			//				has = land.hasPermission(playerName, LandSetting.PLACE);
-			//				break;
-			//
-			//			case breaking:
-			//				has = land.hasPermission(playerName, LandSetting.BREAK);
-			//				break;
+//			case placing:
+//				has = land.hasPermission(playerName, LandSetting.PLACE);
+//				break;
+//
+//			case breaking:
+//				has = land.hasPermission(playerName, LandSetting.BREAK);
+//				break;
 		}
 
 		return has;

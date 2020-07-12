@@ -19,7 +19,7 @@ public class SellCommand implements SubCommand
 	{
 		if (sender instanceof Player)
 		{
-			Pair<Boolean, Shop> vi = PepperShop.ins.ShopInteractionListener.isValidInteraction(sender.getName());
+			Pair<Boolean, Shop> vi = PepperShop.ins.shopInteractionListener.isValidInteraction(sender.getName());
 			if(vi!=null)
 			{
 				if(vi.key.booleanValue())

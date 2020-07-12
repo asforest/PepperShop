@@ -22,7 +22,7 @@ public class ServerCommand implements SubCommand
 		{
 			if(sender.isOp())
 			{
-				Pair<Boolean, Shop> vi = PepperShop.ins.ShopInteractionListener.isValidInteraction(sender.getName());
+				Pair<Boolean, Shop> vi = PepperShop.ins.shopInteractionListener.isValidInteraction(sender.getName());
 
 				if(vi!=null)
 				{
