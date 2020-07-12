@@ -29,7 +29,16 @@ A plugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://gi
 18. Fix some word and grammar problems in English language files
 
 #### 1.1
+
 1. Fix the problem that the configuration file name with Chinese cannot be read
+
+#### 1.2
+
+1. Add the support of Land plugin Version 1.3.9+
+
+#### 1.3
+
+1. Fix the problem that Land plugin cannot be identified
 
 ## Authors
 - [innc11](https://github.com/innc11)
