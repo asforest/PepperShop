@@ -6,12 +6,17 @@
 
 ## 图片 Preview
 
-![overview](https://res.innc11.cn/pictures/peppershop/overview.png)
-![trading](https://res.innc11.cn/pictures/peppershop/trading.png)
-![cp](https://res.innc11.cn/pictures/peppershop/cp.png)
-![hopper](https://res.innc11.cn/pictures/peppershop/hopper.png)
-![chatbar](https://res.innc11.cn/pictures/peppershop/chatbar.png)
-![startup](https://res.innc11.cn/pictures/peppershop/startup.png)
+![overview](pictures/overview.png)
+
+![trading](pictures/trading.png)
+
+![cp](pictures/cp.png)
+
+![hopper](pictures/hopper.png)
+
+![chatbar](pictures/chatbar.png)
+
+![startup](pictures/startup.png)
 
 
 ## 更新记录 Change logs
@@ -49,4 +54,4 @@
 - [innc11](https://github.com/innc11)
 
 ## 原作者 Original Authors
-- [WetABQ](https://github.com/WetABQ)
+- [WetABQ](https://github.com/WetABQ) 
