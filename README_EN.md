@@ -2,6 +2,8 @@
 
 A plugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://github.com/WetABQ)) 
 
+https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
+
 ## Preview
 
 ![overview](pictures/en_overview.png)
@@ -45,3 +47,100 @@ A plugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://gi
 
 ## Original Authors
 - [WetABQ](https://github.com/WetABQ)
+
+
+### Major changes relative to the QuickshopX：
+
+1. Can now coexist with GAC plugin
+2. The scope of the language file covers everywhere, and 99% of the visible text can be customized and modified (except for that message displayed when the language file is loding)
+3. Support both Land plugin and Residence plugin
+4. Removed the option to destroy the shop in snaking-mode
+5. Incorporate the display switch of the holographic item on the slide bar, and the setting will take effect immediately. If set to zero, it will be disabled
+6. Fix some word and grammar problems in English language file
+7. When neither Land plugin nor Residence plugin are installed, operators can open everyone's chests by default
+
+This version adds the compatibility for GAC. If you must use this plugin with GAC, the permission check function of this plugin will be disabled. When you start the plugin up for the first time, please set it in the configuration file (work-with-gac: true), otherwise this plugin will not start. In addition, please choose one of Residence plugin and Land plugin, and try not to use them at the same time
+
+## How to use
+
+### Creating a shop
+Android:   Gently scratch the chest, but don't break the chest, then switch to the item you want for sale on your hand, and finally enter the price directly in the chat bar
+Windows10:   Left click on the chest, then switch to the item you want for sale, and finally enter the price directly in the chat bar
+In creative mode:   Holding down SHIFT , and then break the chest, follow the above way to create a shop and enter the price directly in the chat bar
+
+### Trading
+Char bar:   Click on the sign on the chest and enter the quantity in the chat bar
+Interface:   Click on the sign on the chest to open the interface, drag the number of transactions and click Submit
+Char bar & Interface:   Double-click the sign on the chest to open the interface way, single-click the sign on the chest to use the chat bar way
+
+### Modifying
+Char bar:   Click on the sign and use commands to modify the shop(type '/ps help' for help)
+Interface:   Click on the sign to open the interface, and follow the interface prompts to modify
+Char bar & Interface:   Choose one of the ways of using the chat bar and the interface
+
+### Destroy shop
+Break down the sign on the chest or chest
+Special note: People who have the 'build' permissions in the residence area can also open, destroy the chest of a shop
+
+## Configuration file
+
+```yaml
+# Configuration file version, do not change
+version: 7
+
+# Language, support to load custom language files, currently comes with simplified Chinese and English
+language: cn
+
+# work with GAC
+# If you can accept to disable the permission detection function, you can open
+work-with-gac: false
+
+# interaction way，Please refer to the "How to use -> Trading" section，Available values: (ChatBar|Both|Interface)
+# Recommended to set to 'Both', you can use the interface and chat bar at the same time
+interaction-way: Both
+
+# The waiting time of the message, the default is 5 seconds, after 5 seconds it will become a normal chat message
+# If the message is sent as a chat message, please increase this value
+interaction-timeout: 5000
+
+# The speed of the holographic item function to send data packets
+# It is usually recommended to set to 1000 directly, if there is an item deviation, please adjust it to between 30~100
+hologram-item-effect: 1000
+
+# Whether to interact with the Residence plugin (requires the Residence plugin to be installed)
+link-with-residence-plugin: true
+
+# Whether to interact with the Land plugin (requires the Land plugin to be installed)
+link-with-land-plugin: true
+
+# Whether you can only create a shop in a Residence area
+only-create-shop-in-residence-area: true
+
+# The OPs' 'build' permission will not be checked in Residence areas
+# This option will help when Ops checking items in a chest. It is recommended to close it at ordinary times, and open it again when troubleshooting.
+operator-ignore-build-permission: false
+
+# whether hoppers can only transfer items with a shop's chest in a Residence area
+# Normal chest transmission will not be affected. Only shop-chest that are not in a Residence area will be restricted. This item is recommended to be opened
+limit-hopper: true
+
+# Whether to use the item name translation, if it is opened, the name of the item display is subject to item-translations.yml, if it is closed, the Nukkit comes with (English)
+# This item depends on the item-translations.yml file, please manually download and put it in the plugin folder and then use the reload command to take effect
+use-item-name-translations: false
+```
+
+## About plugin commands
+Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. You can enter abbreviations for each command. For example, sell can be abbreviated as s, controlpanel can be abbreviated as [cp, c], Although the command changed from /qs to /ps, /qs is also reserved as an alias, if you do not understand this part, you can directly ignore it
+
+
+## About GAC plugin
+I have tried several ways to be compatible with GAC, but they have no effect. If you have installed GAC, please set it up in config.yml after the first startup to force coexistence with GAC, otherwise the plugin It will not load. BTW, pay attention to the output information about this plugin in the console for the first startup.
+
+## About Hoppers
+Please do not place the shop on the outermost layer of the Residence area (including six directions). People with ulterior motives may use a hopper to stuff your chests with useless items(please place it at least from the edge On the second layer)
+
+## About importing data from QuickShopx
+This plug-in supports quickshopx's shop-data files (including all players' shop data), that is, just copy the 'shops' folder to the folder of this plugin. This plugin can read them, but the configuration file, language file, and item-name-translation file are not supported. , You need to use the files provided in this page, this section will take a few minutes to reconfigure, almost no big impact
+
+## About Land plugin：
+The Land plugin does not have'build' permission. I made a simple conversion. When you have both the'place' permission and the'break' permission, you are equivalent to having the'build' permission. Do not give these two permissions to strangers. In addition, in the mechanism of Land , OP defaults to all permissions of all territories, then op can open all boxes by default
