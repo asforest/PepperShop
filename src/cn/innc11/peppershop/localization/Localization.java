@@ -93,24 +93,20 @@ public class Localization extends BaseConfig
 	public String get(LangNodes key, Object... argsPair)
 	{
 		String rawStr = lang.get(key);
+		String cookedStr = rawStr;
 
 		int argCount = argsPair.length / 2;
 
 		for(int i=0;i<argCount;i++)
 		{
 			String reg = argsPair[i*2].toString();
+			reg = "\\\\{" + reg;
+			reg = reg + "\\\\}";
 			String replacement = argsPair[i*2+1].toString();
-
-			if(reg.startsWith("{") && reg.endsWith("}"))
-			{
-				reg = reg.replaceAll("\\{", "\\\\{");
-				reg = reg.replaceAll("\\}", "\\\\}");
-				rawStr = rawStr.replaceAll(reg, replacement);
-			}
-
+			cookedStr = rawStr.replaceAll(reg, replacement);
 		}
 
-		return TextFormat.colorize(rawStr);
+		return TextFormat.colorize(cookedStr);
 	}
 
 	public static class SignText
@@ -124,8 +120,8 @@ public class Localization extends BaseConfig
 
 		public String getStockText(Shop shop)
 		{
-			String buyStockText = localization.get(LangNodes.buyshop_stock);
-			String sellStockText = localization.get(LangNodes.sellshop_stock);
+			String buyStockText = Quick.t(LangNodes.buyshop_stock);
+			String sellStockText = Quick.t(LangNodes.sellshop_stock);
 
 			String st = (shop.shopData.type== ShopType.BUY ? buyStockText : sellStockText);
 
@@ -149,15 +145,15 @@ public class Localization extends BaseConfig
 
 		public String[] get(Shop shop)
 		{
-			String buyText1 = localization.get(LangNodes.buyshop_text1);
-			String buyText2 = localization.get(LangNodes.buyshop_text2);
-			String buyText3 = localization.get(LangNodes.buyshop_text3);
-			String buyText4 = localization.get(LangNodes.buyshop_text4);
+			String buyText1 = Quick.t(LangNodes.buyshop_text1);
+			String buyText2 = Quick.t(LangNodes.buyshop_text2);
+			String buyText3 = Quick.t(LangNodes.buyshop_text3);
+			String buyText4 = Quick.t(LangNodes.buyshop_text4);
 
-			String sellText1 = localization.get(LangNodes.sellshop_text1);
-			String sellText2 = localization.get(LangNodes.sellshop_text2);
-			String sellText3 = localization.get(LangNodes.sellshop_text3);
-			String sellText4 = localization.get(LangNodes.sellshop_text4);
+			String sellText1 = Quick.t(LangNodes.sellshop_text1);
+			String sellText2 = Quick.t(LangNodes.sellshop_text2);
+			String sellText3 = Quick.t(LangNodes.sellshop_text3);
+			String sellText4 = Quick.t(LangNodes.sellshop_text4);
 
 
 			String[] text = new String[4];
@@ -186,9 +182,7 @@ public class Localization extends BaseConfig
 			String langKey = "E_"+enchantmentId;
 
 			if(LangNodes.contains(langKey))
-			{
-				return localization.get(LangNodes.valueOf(langKey));
-			}
+				return Quick.t(LangNodes.valueOf(langKey));
 
 			return "UnknownEnchantment "+enchantmentId;
 		}

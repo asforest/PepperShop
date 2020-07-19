@@ -1,7 +1,9 @@
 package cn.innc11.peppershop.listener;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +11,7 @@ import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.stroage.ShopConfig;
 import cn.innc11.peppershop.shop.ShopData;
 import cn.innc11.peppershop.utils.Pair;
+import cn.innc11.peppershop.utils.Quick;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
@@ -22,16 +25,17 @@ import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.network.protocol.RemoveEntityPacket;
 import cn.nukkit.scheduler.PluginTask;
 
-public class HologramItemListener implements Listener
+public class HologramItemListener implements Listener, ReloadableListener
 {
-	ArrayBlockingQueue<Pair<Collection<Player>, DataPacket>> queue = new ArrayBlockingQueue<Pair<Collection<Player>,DataPacket>>(3000);
+	PepperShop ins;
+	public ArrayBlockingQueue<Pair<Collection<Player>, DataPacket>> queue;
 	
 	PluginTask<PepperShop> sendDataPacketTask = new PluginTask<PepperShop>(PepperShop.ins)
 	{
 		@Override
 		public void onRun(int currentTicks) 
 		{
-			int packetSendDelay = 50;
+			int packetSendingDelay;
 			
 			while (true) 
 			{
@@ -42,10 +46,11 @@ public class HologramItemListener implements Listener
 
 					int interval = PepperShop.ins.pluginConfig.hologramItemEffect;
 
-					packetSendDelay = interval==0? 1:(1*1000 / interval);
-					packetSendDelay = Math.min(Math.max(packetSendDelay, 0), 5000);
-					
-					Thread.sleep(packetSendDelay);
+					packetSendingDelay = 1*1000 / interval;
+					packetSendingDelay = Math.min(Math.max(packetSendingDelay, 0), 5000);
+
+					if(packetSendingDelay>0)
+						Thread.sleep(packetSendingDelay);
 				}
 				catch (InterruptedException e) {e.printStackTrace();}
 			}
@@ -54,6 +59,8 @@ public class HologramItemListener implements Listener
 	
 	public HologramItemListener(PepperShop main)
 	{
+		ins = main;
+		reload();
 		main.getServer().getScheduler().scheduleDelayedTask(sendDataPacketTask, 0, true);
 	}
 	
@@ -159,7 +166,7 @@ public class HologramItemListener implements Listener
 				.putLong(Entity.DATA_LEAD_HOLDER_EID, -1)
 				.putFloat(Entity.DATA_SCALE, 4f);
 		try {
-			queue.offer(new Pair<Collection<Player>, DataPacket>(players, addItemEntityPacket), 2L, TimeUnit.SECONDS);
+			queue.offer(new Pair<>(players, addItemEntityPacket), 10L, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {e.printStackTrace();}
 		
 		return entityId;
@@ -178,8 +185,65 @@ public class HologramItemListener implements Listener
 		removeItemEntityPacket.eid = shopData.shopRandomId;
 
 		try {
-			queue.offer(new Pair(players, removeItemEntityPacket), 2L, TimeUnit.SECONDS);
+			queue.offer(new Pair(players, removeItemEntityPacket), 10L, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {e.printStackTrace();}
 	}
-	
+
+	@Override
+	public void reload()
+	{
+		HashSet<Pair<Collection<Player>, DataPacket>> temp = null;
+
+		if(queue != null)
+		{
+			int capacity = getCurrentQueueCapacity();
+
+			if(ins.pluginConfig.packetQueueCapacity!=capacity)
+			{
+				Quick.debug("拿起 "+ins.pluginConfig.packetQueueCapacity+"|"+capacity);
+				temp = new HashSet<>();
+				queue.drainTo(temp);
+			}
+		}
+
+		queue = new ArrayBlockingQueue<>(ins.pluginConfig.packetQueueCapacity);
+
+		if(temp != null)
+		{
+			try {
+				queue.addAll(temp);
+			}catch (IllegalStateException e){}
+			Quick.debug("放下");
+		}
+	}
+
+	public int getCurrentQueueCapacity()
+	{
+		int length = 0;
+
+		try {
+			Field f = queue.getClass().getDeclaredField("items");
+			f.setAccessible(true);
+			length = ((Object[]) f.get(queue)).length;
+		} catch (IllegalAccessException | NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		return length;
+	}
+
+	public int getCurrentQueueCount()
+	{
+		int count = 0;
+
+		try {
+			Field f = queue.getClass().getDeclaredField("count");
+			f.setAccessible(true);
+			count = (int) f.get(queue);
+		} catch (IllegalAccessException | NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		return count;
+	}
 }

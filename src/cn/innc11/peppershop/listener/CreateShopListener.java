@@ -49,7 +49,7 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 				{
 					allowCreateShop = true;
 				} else {
-					player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "{PERMISSION}", "build"));
+					player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "PERMISSION", "build"));
 				}
 				
 			} else {
@@ -106,7 +106,7 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 
 			if(currCount>=countLimit)
 			{
-				player.sendMessage(Quick.t(LangNodes.im_not_allow_have_more_shop, "{MAX}", String.valueOf(countLimit)));
+				player.sendMessage(Quick.t(LangNodes.im_not_allow_have_more_shop, "MAX", String.valueOf(countLimit)));
 				return;
 			}
 		}
@@ -116,7 +116,7 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 			int interval = PepperShop.ins.pluginConfig.interactionTimeout;
 			
 			creatingShopPlayers.put(player.getName(), new Pair<Long,Block>(Long.valueOf(System.currentTimeMillis()+interval), block));
-			player.sendMessage(Quick.t(LangNodes.im_creating_shop_enter_price, "{TIMEOUT}", String.format("%.1f", interval/1000f)));
+			player.sendMessage(Quick.t(LangNodes.im_creating_shop_enter_price, "TIMEOUT", String.format("%.1f", interval/1000f)));
 
 		}
 	}

@@ -288,7 +288,7 @@ public abstract class Shop
 			
 		} else {
 			// the sign of shop is blocked
-			player.sendMessage(Quick.t(LangNodes.im_shop_sign_blocked, "{BLOCK}", PepperShop.ins.itemNameTranslationConfig.getItemName(signBlock.toItem())));
+			player.sendMessage(Quick.t(LangNodes.im_shop_sign_blocked, "BLOCK", PepperShop.ins.itemNameTranslationConfig.getItemName(signBlock.toItem())));
 		}
 		
 		return SHOP;

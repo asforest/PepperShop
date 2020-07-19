@@ -56,7 +56,7 @@ public class ItemNameTranslationConfig extends BaseConfig
 		}
 
 		Quick.info(LangNodes.pm_loaded_custom_item_names,
-				"{COUNT}", itemNameMap.size());
+				"COUNT", itemNameMap.size());
 	}
 
 	

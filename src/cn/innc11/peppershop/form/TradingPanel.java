@@ -23,17 +23,17 @@ public class TradingPanel extends FormWindowCustom implements FormResponse
 	
 	public TradingPanel(Shop shop, String playerName)
 	{
-		super(Quick.t(LangNodes.trading_title, "{OWNER}", (shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner)));
+		super(Quick.t(LangNodes.trading_title, "OWNER", (shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner)));
 		
 		this.shopKey = shop.convertShopLocationByPos();
 		this.playerName = playerName;
 		
 		addElement(new ElementLabel(Quick.t(LangNodes.trading_shop_info,
-				"{GOODS}", PepperShop.ins.itemNameTranslationConfig.getItemName(shop.getItem()),
-				"{PRICE}", shop.getStringPrice(),
-				"{TYPE}", shop.shopData.type.toString(),
-				"{STOCK}", PepperShop.ins.itemNameTranslationConfig.getItemName(shop.getItem()),
-				"{ENCHANTMENTS}", Quick.getEnchantments(shop.getItem())
+				"GOODS", PepperShop.ins.itemNameTranslationConfig.getItemName(shop.getItem()),
+				"PRICE", shop.getStringPrice(),
+				"TYPE", shop.shopData.type.toString(),
+				"STOCK", PepperShop.ins.itemNameTranslationConfig.getItemName(shop.getItem()),
+				"ENCHANTMENTS", Quick.getEnchantments(shop.getItem())
 				)));
 
 		PlayerInventory playerInv = Server.getInstance().getPlayerExact(playerName).getInventory();
@@ -41,7 +41,7 @@ public class TradingPanel extends FormWindowCustom implements FormResponse
 
 		int m = shop.getMaxTransactionVolume(playerMoney, InvItem.getItemInInventoryCount(playerInv, shop.getItem()));
 		
-		addElement(new ElementSlider(Quick.t(LangNodes.trading_trading_volume, "{VOLUME}", String.valueOf(m)), 0, m, 1, 0));
+		addElement(new ElementSlider(Quick.t(LangNodes.trading_trading_volume, "VOLUME", String.valueOf(m)), 0, m, 1, 0));
 	}
 
 	@Override

@@ -62,37 +62,39 @@ public class BuyShop extends Shop {
 
 								if(shopOwner!=null) {
 									shopOwner.sendMessage(Quick.t(LangNodes.im_buyshop_owner,
-											"{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
-											"{COUNT}", String.valueOf(count),
-											"{MONEY}", String.format("%.2f", price)));
+											"ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
+											"COUNT", String.valueOf(count),
+											"MONEY", String.format("%.2f", price)));
 								}
 							}
 
 							updateSignText();
 
 							player.sendMessage(Quick.t(LangNodes.im_buyshop_customer,
-									"{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
-									"{COUNT}", String.valueOf(count),
-									"{MONEY}", String.format("%.2f", price)));
+									"ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
+									"COUNT", String.valueOf(count),
+									"MONEY", String.format("%.2f", price)));
 						}
 
 
 					} else {
-						player.sendMessage(Quick.t(LangNodes.im_buyshop_backpack_full, "{COUNT}", String.valueOf(count), "{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item)));
+						player.sendMessage(Quick.t(LangNodes.im_buyshop_backpack_full,
+								"COUNT", String.valueOf(count), "ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item)));
 					}
 				}  else {
 					player.sendMessage(Quick.t(LangNodes.im_buyshop_not_enough_money,
-							"{MONEY}", String.format("%.2f", playerMoney),
-							"{PRICE}", String.format("%.2f", shopData.price),
-							"{COUNT}", String.valueOf(count),
-							"{SUBTOTAL}", String.format("%.2f", shopData.price*count),
-							"{LACK}", String.format("%.2f", price-playerMoney)));
+							"MONEY", String.format("%.2f", playerMoney),
+							"PRICE", String.format("%.2f", shopData.price),
+							"COUNT", String.valueOf(count),
+							"SUBTOTAL", String.format("%.2f", shopData.price*count),
+							"LACK", String.format("%.2f", price-playerMoney)));
 				}
 			}else {
 				if(itemCountInChest==0)
 					player.sendMessage(Quick.t(LangNodes.im_buyshop_sold_out));
 				else
-					player.sendMessage(Quick.t(LangNodes.im_buyshop_insufficient_stock, "{COUNT}", String.valueOf(count), "{REMAIN}", String.valueOf(itemCountInChest)));
+					player.sendMessage(Quick.t(LangNodes.im_buyshop_insufficient_stock,
+							"COUNT", String.valueOf(count), "REMAIN", String.valueOf(itemCountInChest)));
 			}
 		}
 	}

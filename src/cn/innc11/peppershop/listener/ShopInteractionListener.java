@@ -72,12 +72,12 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 						
 						// show the shop detail information
 						player.sendMessage(Quick.t(LangNodes.im_shop_info,
-								"{GOODS}", PepperShop.ins.itemNameTranslationConfig.getItemName(shopItem),
-								"{PRICE}", String.format("%.1f", shop.shopData.price),
-								"{OWNER}", shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner,
-								"{TYPE}", shop.shopData.type.toString(),
-								"{STOCK}", PepperShop.ins.localization.signText.getStockText(shop),
-                                "{ENCHANTMENTS}", Quick.getEnchantments(shopItem)
+								"GOODS", PepperShop.ins.itemNameTranslationConfig.getItemName(shopItem),
+								"PRICE", String.format("%.1f", shop.shopData.price),
+								"OWNER", shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner,
+								"TYPE", shop.shopData.type.toString(),
+								"STOCK", PepperShop.ins.localization.signText.getStockText(shop),
+                                "ENCHANTMENTS", Quick.getEnchantments(shopItem)
                         ));
 
 						//if(!player.getName().equals(shop.shopData.owner))
@@ -168,7 +168,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 
 						if(!hasPerm)
 						{
-							player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "{PERMISSION}", "build"));
+							player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "PERMISSION", "build"));
 							allow = false;
 						}
 					}
@@ -189,7 +189,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 						player.sendMessage(Quick.t(LangNodes.im_successfully_removed_shop));
 					}
 				} else {
-					player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "{PERMISSION}", "build"));
+					player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "PERMISSION", "build"));
 					e.setCancelled();
 				}
 			}

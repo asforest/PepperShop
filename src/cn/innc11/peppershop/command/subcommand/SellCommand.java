@@ -37,7 +37,7 @@ public class SellCommand implements SubCommand
 
 							shop.updateSignText();
 
-							sender.sendMessage(Quick.t(LangNodes.im_shop_type_updated, "{TYPE}", ShopType.SELL.toString()));
+							sender.sendMessage(Quick.t(LangNodes.im_shop_type_updated, "TYPE", ShopType.SELL.toString()));
 						} else {
 							sender.sendMessage(Quick.t(LangNodes.im_shop_type_donot_need_update));
 						}

@@ -41,6 +41,8 @@ public class PluginCommand extends Command
 
 		registerCommand(new VersionCommand());
 
+		registerCommand(new StatusCommand());
+
 	}
 
 	public void registerCommand(SubCommand subCommand)

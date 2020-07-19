@@ -60,9 +60,9 @@ public class SellShop extends Shop
 
 								if(shopOwner!=null) {
 									shopOwner.sendMessage(Quick.t(LangNodes.im_sellshop_owner,
-											"{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
-											"{COUNT}", String.valueOf(count),
-											"{MONEY}", String.format("%.2f", price)));
+											"ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
+											"COUNT", String.valueOf(count),
+											"MONEY", String.format("%.2f", price)));
 								}
 							}
 
@@ -71,26 +71,26 @@ public class SellShop extends Shop
 							updateSignText();
 
 							player.sendMessage(String.format(Quick.t(LangNodes.im_sellshop_customer,
-									"{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
-									"{COUNT}", String.valueOf(count),
-									"{MONEY}", String.format("%.2f", price))));
+									"ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
+									"COUNT", String.valueOf(count),
+									"MONEY", String.format("%.2f", price))));
 						}
 
 
 					} else {
 						player.sendMessage(Quick.t(LangNodes.im_sellshop_not_enough_item,
-								"{ITEM}", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
-								"{COUNT}", String.valueOf(count)));
+								"ITEM", PepperShop.ins.itemNameTranslationConfig.getItemName(item),
+								"COUNT", String.valueOf(count)));
 					}
 
 				} else {
 					player.sendMessage(Quick.t(LangNodes.im_sellshop_stock_full,
-							"{COUNT}", String.valueOf(count),
-							"{MAX}", String.valueOf(getShopEntityChest().getInventory().getFreeSpace(item))));
+							"COUNT", String.valueOf(count),
+							"MAX", String.valueOf(getShopEntityChest().getInventory().getFreeSpace(item))));
 				}
 
 			} else {
-				player.sendMessage(Quick.t(LangNodes.im_sellshop_not_enough_money, "{OWNER}", shopData.owner));
+				player.sendMessage(Quick.t(LangNodes.im_sellshop_not_enough_money, "OWNER", shopData.owner));
 			}
 		}
 

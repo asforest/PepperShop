@@ -113,8 +113,8 @@ public class ShopConfig extends BaseConfig
 		}
 
 		Quick.info(LangNodes.pm_loaded_shops,
-				"{COUNT}", count,
-				"{WORLD}", getWorldName());
+				"COUNT", count,
+				"WORLD", getWorldName());
 	}
 
 	@Override

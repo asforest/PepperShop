@@ -38,7 +38,7 @@ public class BuyCommand implements SubCommand
 
 							shop.updateSignText();
 
-							sender.sendMessage(Quick.t(im_shop_type_updated, "{TYPE}", ShopType.BUY.toString()));
+							sender.sendMessage(Quick.t(im_shop_type_updated, "TYPE", ShopType.BUY.toString()));
 						} else {
 							sender.sendMessage(Quick.t(im_shop_type_donot_need_update));
 						}

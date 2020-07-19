@@ -12,6 +12,7 @@ import cn.nukkit.form.element.ElementSlider;
 import cn.nukkit.form.element.ElementToggle;
 import cn.nukkit.form.window.FormWindowCustom;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,13 +28,55 @@ public class PluginControlPanel extends FormWindowCustom implements FormResponse
 	public PluginControlPanel() 
 	{
 		super(Quick.t(LangNodes.cp_title,
-				"{PLUGIN_NAME}",  PepperShop.ins.getDescription().getName(),
-				"{CONFIG_VERSION}", PepperShop.ins.pluginConfig.version +"",
-				"{PLUGIN_VERSION}", PepperShop.ins.getDescription().getVersion()));
-		
-		PluginConfig pc = PepperShop.ins.pluginConfig;
+				"PLUGIN_NAME",  PepperShop.ins.getDescription().getName(),
+				"CONFIG_VERSION", PepperShop.ins.pluginConfig.version +"",
+				"PLUGIN_VERSION", PepperShop.ins.getDescription().getVersion()));
 
-		Field[] allFields = PluginConfig.class.getDeclaredFields();
+		convertToForm(PepperShop.ins.pluginConfig);
+	}
+
+	@Override
+	public void onFormResponse(PlayerFormRespondedEvent e) 
+	{
+		Player player = e.getPlayer();
+
+		if(!player.isOp())
+			return;
+
+		try {
+			player.sendMessage(Quick.t(LangNodes.pm_configure_updated));
+			convertFromForm(PepperShop.ins.pluginConfig, e);
+		}catch (Exception ex){ex.printStackTrace();}
+
+		PepperShop.ins.pluginConfig.save();
+	}
+
+	@Override
+	public void onFormClose(PlayerFormRespondedEvent e)
+	{
+
+	}
+
+
+	@Target({ElementType.FIELD })
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface PresentInForm
+	{
+		LangNodes lang();
+		String conditionCallback() default "";
+	}
+
+	@Target({ElementType.FIELD })
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface UpdateCallbackInForm
+	{
+		String methodName();
+	}
+
+
+	private void convertToForm(Object obj)
+	{
+		Field[] allFields = obj.getClass().getDeclaredFields();
 
 		for(int i=0;i<allFields.length;i++)
 		{
@@ -47,22 +90,22 @@ public class PluginControlPanel extends FormWindowCustom implements FormResponse
 
 				String conditionCallback = field.getAnnotation(PresentInForm.class).conditionCallback();
 
-				boolean pass = true;
+				boolean skip = true;
 
 				if(!conditionCallback.isEmpty())
 				{
 					try {
-						pass = (boolean) field.getDeclaringClass().getDeclaredMethod(conditionCallback).invoke(pc);
+						skip = (boolean) field.getDeclaringClass().getDeclaredMethod(conditionCallback).invoke(obj);
 					}catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e){ e.printStackTrace(); }
 				}
 
-				if(!pass || (defaultInt==Integer.MIN_VALUE && defaultString.isEmpty()))
+				if(!skip || (defaultInt==Integer.MIN_VALUE && defaultString.isEmpty()))
 					continue;
 
 				Object instanceValue_ = null;
 
 				try {
-					instanceValue_ = pc.getClass().getDeclaredField(fieldName).get(pc);
+					instanceValue_ = obj.getClass().getDeclaredField(fieldName).get(obj);
 				} catch (Exception e) {e.printStackTrace();}
 
 				String label = Quick.t(field.getAnnotation(PresentInForm.class).lang());
@@ -118,110 +161,72 @@ public class PluginControlPanel extends FormWindowCustom implements FormResponse
 
 			}
 		}
-
 	}
 
-	@Override
-	public void onFormResponse(PlayerFormRespondedEvent e) 
-	{
-		Player player = e.getPlayer();
+	private void convertFromForm(Object obj, PlayerFormRespondedEvent event) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+		Field[] allFields = PluginConfig.class.getDeclaredFields();
 
-		if(!player.isOp())
-			return;
+		int elementIndex = 0;
 
-		try {
-			player.sendMessage(Quick.t(LangNodes.pm_configure_updated));
+		for(int i=0;i<allFields.length;i++)
+		{
+			if(!showedFields.contains(i)) continue;
 
-			PluginConfig pc = PepperShop.ins.pluginConfig;
-			Field[] allFields = PluginConfig.class.getDeclaredFields();
+			Field field = allFields[i];
+			String fieldName = field.getName();
 
-			int elementIndex = 0;
-
-			for(int i=0;i<allFields.length;i++)
+			if (field.isAnnotationPresent(PluginConfig.Default.class) && field.isAnnotationPresent(PresentInForm.class))
 			{
-				if(!showedFields.contains(i)) continue;
+				int defaultInt = field.getAnnotation(PluginConfig.Default.class).intValue();
+				String defaultString = field.getAnnotation(PluginConfig.Default.class).stringValue();
 
-				Field field = allFields[i];
-				String fieldName = field.getName();
+				Object instanceValue = obj.getClass().getDeclaredField(fieldName).get(obj);
 
-				if (field.isAnnotationPresent(PluginConfig.Default.class) && field.isAnnotationPresent(PresentInForm.class))
+				if((defaultInt==Integer.MIN_VALUE && defaultString.isEmpty()))
+					continue;
+
+				if (field.getType() == int.class)
 				{
-					int defaultInt = field.getAnnotation(PluginConfig.Default.class).intValue();
-					String defaultString = field.getAnnotation(PluginConfig.Default.class).stringValue();
+					int response = (int) getResponse().getSliderResponse(elementIndex);
+					obj.getClass().getDeclaredField(fieldName).set(obj, response);
+					elementIndex ++;
+				}
 
-					Object instanceValue = pc.getClass().getDeclaredField(fieldName).get(pc);
+				if (field.getType() == boolean.class)
+				{
+					boolean response = getResponse().getToggleResponse(elementIndex);
+					obj.getClass().getDeclaredField(fieldName).set(obj, response);
+					elementIndex ++;
+				}
 
-					if((defaultInt==Integer.MIN_VALUE && defaultString.isEmpty()))
-						continue;
+				if (field.getType().isEnum())
+				{
+					int response = getResponse().getDropdownResponse(elementIndex).getElementID();
+					obj.getClass().getDeclaredField(fieldName).set(obj, field.getType().getEnumConstants()[response]);
+					elementIndex ++;
+				}
 
-					if (field.getType() == int.class)
-					{
-						int response = (int) getResponse().getSliderResponse(elementIndex);
-						pc.getClass().getDeclaredField(fieldName).set(pc, response);
-						elementIndex ++;
-					}
+				if(field.getType()==String.class)
+				{
+					String response = getResponse().getInputResponse(elementIndex);
+					obj.getClass().getDeclaredField(fieldName).set(obj, response);
+					elementIndex ++;
+				}
 
-					if (field.getType() == boolean.class)
-					{
-						boolean response = getResponse().getToggleResponse(elementIndex);
-						pc.getClass().getDeclaredField(fieldName).set(pc, response);
-						elementIndex ++;
-					}
+				if (field.isAnnotationPresent(UpdateCallbackInForm.class))
+				{
+					Class parameterType = instanceValue.getClass();
+					String methodName = field.getAnnotation(UpdateCallbackInForm.class).methodName();
+					Object oldValue = instanceValue;
+					Object newValue = obj.getClass().getDeclaredField(fieldName).get(obj);
 
-					if (field.getType().isEnum())
-					{
-						int response = getResponse().getDropdownResponse(elementIndex).getElementID();
-						pc.getClass().getDeclaredField(fieldName).set(pc, field.getType().getEnumConstants()[response]);
-						elementIndex ++;
-					}
-
-					if(field.getType()==String.class)
-					{
-						String response = getResponse().getInputResponse(elementIndex);
-						pc.getClass().getDeclaredField(fieldName).set(pc, response);
-						elementIndex ++;
-					}
-
-					if (field.isAnnotationPresent(UpdateCallbackInForm.class))
-					{
-						Class parameterType = instanceValue.getClass();
-						String methodName = field.getAnnotation(UpdateCallbackInForm.class).methodName();
-						Object oldValue = instanceValue;
-						Object newValue = pc.getClass().getDeclaredField(fieldName).get(pc);
-
-						if(!oldValue.equals(newValue))
-							field.getDeclaringClass().getDeclaredMethod(methodName, parameterType, parameterType, Player.class).invoke(pc, newValue, oldValue, player);
-					}
-
+					if(!oldValue.equals(newValue))
+						field.getDeclaringClass().getDeclaredMethod(methodName, parameterType, parameterType, Player.class).invoke(obj, newValue, oldValue, event.getPlayer());
 				}
 
 			}
 
-		}catch (Exception ex){ex.printStackTrace();}
-
-		PepperShop.ins.pluginConfig.save();
-	}
-
-	@Override
-	public void onFormClose(PlayerFormRespondedEvent e)
-	{
-
-	}
-
-
-	@Target({ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	public @interface PresentInForm
-	{
-		LangNodes lang();
-		String conditionCallback() default "";
-	}
-
-	@Target({ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	public @interface UpdateCallbackInForm
-	{
-		String methodName();
+		}
 	}
 
 }

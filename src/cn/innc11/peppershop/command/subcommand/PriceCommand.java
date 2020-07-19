@@ -39,7 +39,7 @@ public class PriceCommand implements SubCommand
 							shop.updateSignText();
 
 							sender.sendMessage(Quick.t(im_shop_price_updated,
-									"{PRICE}", String.format("%.2f", shop.shopData.price)));
+									"PRICE", String.format("%.2f", shop.shopData.price)));
 						} else {
 							sender.sendMessage(Quick.t(im_not_allow_modify_price_not_owner));
 						}

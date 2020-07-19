@@ -18,9 +18,7 @@ public class Quick
 	public static String getEnchantments(Item item)
 	{
 		if(!item.hasEnchantments())
-		{
 			return "";
-		}
 
 		Enchantment[] enchantments = item.getEnchantments();
 		StringBuffer sb = new StringBuffer();
@@ -30,33 +28,26 @@ public class Quick
 			Enchantment enchantment = enchantments[i];
 
 			String prefix = (i==0?
-					t(LangNodes.enchant_prefix_first, "{PREFIX}", t(LangNodes.enchant_prefix))
-					:
+					t(LangNodes.enchant_prefix_first, "PREFIX", t(LangNodes.enchant_prefix)):
 					t(LangNodes.enchant_prefix)
 				);
 
 			String suffix = (i==enchantments.length-1?
-					t(LangNodes.enchant_suffix_last, "{SUFFIX}", t(LangNodes.enchant_suffix))
-					:
+					t(LangNodes.enchant_suffix_last, "SUFFIX", t(LangNodes.enchant_suffix)):
 					t(LangNodes.enchant_suffix)
 				);
 
 			sb.append(t(LangNodes.enchant_each_line,
-					"{PREFIX}", prefix,
-					"{ENCHANT}", PepperShop.ins.localization.enchantNames.getEnchantmentName(enchantment.getId()),
-					"{LEVEL}", String.valueOf(enchantment.getLevel()),
-					"{SUFFIX}", suffix
+					"PREFIX", prefix,
+					"ENCHANT", PepperShop.ins.localization.enchantNames.getEnchantmentName(enchantment.getId()),
+					"LEVEL", String.valueOf(enchantment.getLevel()),
+					"SUFFIX", suffix
 				));
 
 		}
 
-		return t(LangNodes.enchant_text, "{LINES}", sb.toString());
+		return t(LangNodes.enchant_text, "LINES", sb.toString());
 	}
-
-
-
-	// logger
-
 
 	public static void critical(String s)
 	{
@@ -83,7 +74,6 @@ public class Quick
 		if(debug)
 			PepperShop.logger.warning(s);
 	}
-
 
 	public static void critical(LangNodes l, Object... args)
 	{

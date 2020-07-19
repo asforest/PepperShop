@@ -75,7 +75,7 @@ public class ItemAndInventoryListener implements Listener
 					if(!allow)
 					{
 						e.setCancelled();
-						player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "{PERMISSION}", "build"));
+						player.sendMessage(Quick.t(LangNodes.im_no_residence_permission, "PERMISSION", "build"));
 					}
 				}else {
 					if(!player.getName().equals(shop.shopData.owner) && !player.isOp())

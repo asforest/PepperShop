@@ -99,7 +99,7 @@ public class PepperShop extends PluginBase
 		{
 			if(!pluginConfig.workWithGac)
 			{
-				getLogger().error(TextFormat.colorize(localization.get(LangNodes.pm_gac_warning_1)));
+				Quick.error(LangNodes.pm_gac_warning_1);
 				server.getPluginManager().disablePlugin(this);
 				return;
 			}else{
@@ -156,6 +156,8 @@ public class PepperShop extends PluginBase
 		loc = localization = new Localization(new File(getDataFolder(), String.format("localization/%s.yml", pluginConfig.language)));
 		shopsConfig.reloadAllShops();
 		itemNameTranslationConfig.reload();
+
+		hologramListener.reload();
 	}
 	
 	public static boolean isInteger(String str)

@@ -16,16 +16,16 @@ public class ShopOwnerPanel extends FormWindowSimple implements FormResponse
 	public ShopOwnerPanel(Shop shop, String playerName)
 	{
 		super(Quick.t(LangNodes.owner_title,
-				"{OWNER}", (shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner)), "");
+				"OWNER", (shop.shopData.serverShop? Quick.t(LangNodes.server_nickname):shop.shopData.owner)), "");
 		
 		this.shopKey = shop.convertShopLocationByPos();
 		this.playerName = playerName;
 
 		setContent(Quick.t(LangNodes.owner_content,
-				"{PRICE}", shop.getStringPrice(),
-				"{TYPE}",  Quick.t(shop.shopData.type== ShopType.BUY ? LangNodes.buy : LangNodes.sell),
-				"{STOCK}", String.valueOf(shop.getStock()),
-				"{ENCHANTMENTS}", Quick.getEnchantments(shop.getItem())
+				"PRICE", shop.getStringPrice(),
+				"TYPE",  Quick.t(shop.shopData.type== ShopType.BUY ? LangNodes.buy : LangNodes.sell),
+				"STOCK", String.valueOf(shop.getStock()),
+				"ENCHANTMENTS", Quick.getEnchantments(shop.getItem())
 		));
 
 		addButton(new ElementButton(Quick.t(LangNodes.owner_button_shop_trading_panel)));

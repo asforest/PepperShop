@@ -25,6 +25,9 @@ public class PluginConfig extends BaseConfig
 	@Default(intValue = 0)
 	public boolean workWithGac;
 
+	@Default(intValue = 10000, min = 0, max = 1000000000)
+	public int packetQueueCapacity;
+
 	@Default(intValue = 1)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_way)
 	public InteractionWay interactionWay;
@@ -33,7 +36,7 @@ public class PluginConfig extends BaseConfig
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_time)
 	public int interactionTimeout;
 
-	@Default(intValue = 150, min = 0, max = 1000, step = 10)
+	@Default(intValue = 150, min = 0, max = 1001, step = 10)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_packet_send_ps)
 	@PluginControlPanel.UpdateCallbackInForm(methodName = "updateHologramItemEffect")
 	public int hologramItemEffect;
