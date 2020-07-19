@@ -16,7 +16,7 @@ public class HelpCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "help";
 	}
@@ -28,9 +28,9 @@ public class HelpCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("help", false)};
+		return null;
 	}
 
 }

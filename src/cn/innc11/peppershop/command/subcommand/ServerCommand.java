@@ -47,7 +47,7 @@ public class ServerCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "server";
 	}
@@ -59,8 +59,8 @@ public class ServerCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("server", false)};
+		return null;
 	}
 }

@@ -60,7 +60,7 @@ public class SellCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "sell";
 	}
@@ -72,8 +72,8 @@ public class SellCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("sell", false)};
+		return null;
 	}
 }

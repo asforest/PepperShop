@@ -56,7 +56,7 @@ im-not-allow-have-more-shop: "You cannot create any more shop, you can only have
 pm-reload-done: "Reloaded successfully"
 pm-configure-updated: "The plugin's configuration has been updated"
 pm-help-player:
-  - "&6----PepperShop Commands----"
+  - "&6---- PepperShop Commands ----"
   - "&b/ps help(h) - Help"
   - "&b/ps buy(b) - Set the currently clicked shop's type to be &aBuy"
   - "&b/ps sell(s) - Set the currently clicked shop's type to be &4Sell"
@@ -65,7 +65,7 @@ pm-help-operator:
   - "&9/ps server(se) - Set the currently clicked shop to be Server Shop"
   - "&9/ps version(v) - View plugin version information"
   - "&9/ps controlpanel(cp,c) - Open the plugin control panel(Interface)"
-  - "&9/ps reload(r) - Reload all configuration files for the plugin (except shops.yml))"
+  - "&9/ps reload(r) - Reload all configuration files for the plugin (except shop data file))"
 pm-cannot-work-with-quickshop: "&cThis plugin can not work with the QuickShop plugin together"
 pm-cannot-work-with-quickshopx: "&cThis plugin can not work with the QuickShopX plugin together"
 pm-linked-with-residence: "&eSuccessfully linked with the &aResidence&e plugin!"

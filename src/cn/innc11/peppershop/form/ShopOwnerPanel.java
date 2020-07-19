@@ -4,6 +4,7 @@ import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopType;
 import cn.innc11.peppershop.utils.Quick;
+import cn.nukkit.Player;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.window.FormWindowSimple;
@@ -37,27 +38,25 @@ public class ShopOwnerPanel extends FormWindowSimple implements FormResponse
 	public void onFormResponse(PlayerFormRespondedEvent e) 
 	{
 		Shop shop = Shop.getShopByLocation(shopKey);
+		Player player = e.getPlayer();
 
-		if(!e.getPlayer().isOp() && !e.getPlayer().getName().equals(shop.shopData.owner))
-		{
+		if(!player.isOp() && !player.getName().equals(shop.shopData.owner))
 			return;
-		}
 
 		int clickedButtonIndex = getResponse().getClickedButtonId();
 
 		switch (clickedButtonIndex)
 		{
 			case 0:
-				e.getPlayer().showFormWindow(new TradingPanel(shop, playerName));
+				player.showFormWindow(new TradingPanel(shop, playerName));
 				break;
 
 			case 1:
-				e.getPlayer().showFormWindow(new ShopDataPanel(shop, playerName));
+				player.showFormWindow(new ShopDataPanel(shop, playerName));
 				break;
-
 		}
 		
-	 }
+	}
 
 	@Override
 	public void onFormClose(PlayerFormRespondedEvent e)

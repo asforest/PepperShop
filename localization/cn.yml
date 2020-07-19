@@ -56,7 +56,7 @@ im-not-allow-have-more-shop: "你不能再创建更多的商店了,你只能拥�
 pm-reload-done: "重新加载完成"
 pm-configure-updated: "配置已经更新"
 pm-help-player:
-  - "&6----PepperShop 指令----"
+  - "&6---- PepperShop 指令 ----"
   - "&b/ps help(h) - 查看帮助"
   - "&b/ps buy(b) - 设置当前点击过的商店为&a购买&b类型"
   - "&b/ps sell(s) - 设置当前点击过的商店为&4回收&b类型"
@@ -65,7 +65,7 @@ pm-help-operator:
   - "&9/ps server(se) - 设置当前点击过的商店为系统商店"
   - "&9/ps version(v) - 查看插件版本信息"
   - "&9/ps controlpanel(cp) - 打开插件的控制面板(UI)"
-  - "&9/ps reload(r) - 重新加载插件的所有配置文件(shops.yml除外)"
+  - "&9/ps reload(r) - 重新加载插件的所有配置文件(商店数据文件除外)"
 pm-cannot-work-with-quickshop: "&c本插件无法和QuickShop插件同时工作"
 pm-cannot-work-with-quickshopx: "&c本插件无法和QuickShopX插件同时工作"
 pm-linked-with-residence: "&e成功连接到&aResidence&e插件!"

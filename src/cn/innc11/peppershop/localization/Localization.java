@@ -100,8 +100,8 @@ public class Localization extends BaseConfig
 		for(int i=0;i<argCount;i++)
 		{
 			String reg = argsPair[i*2].toString();
-			reg = "\\\\{" + reg;
-			reg = reg + "\\\\}";
+			reg = "\\{" + reg;
+			reg = reg + "\\}";
 			String replacement = argsPair[i*2+1].toString();
 			cookedStr = rawStr.replaceAll(reg, replacement);
 		}

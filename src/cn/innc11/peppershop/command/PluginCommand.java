@@ -1,5 +1,7 @@
 package cn.innc11.peppershop.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import cn.innc11.peppershop.command.subcommand.*;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.command.data.CommandParameter;
 
 import static cn.innc11.peppershop.localization.LangNodes.*;
 
@@ -21,7 +24,7 @@ public class PluginCommand extends Command
 		
 		setDescription("PepperShop Command");
 		setAliases(new String[]{"shop", "qs", "quickshop", "pes", "ps", "pps"});
-        setUsage("/qs <SubCommand> [Args]");
+        setUsage("/ps <SubCommand> [Args]");
 
 		getCommandParameters().clear();
 
@@ -42,19 +45,21 @@ public class PluginCommand extends Command
 		registerCommand(new VersionCommand());
 
 		registerCommand(new StatusCommand());
-
 	}
 
-	public void registerCommand(SubCommand subCommand)
+	public void registerCommand(SubCommand command)
 	{
-		String commandName = subCommand.getCommandName();
+		String commandText = command.getSubCommandName();
 
-		subCommands.put(commandName, subCommand);
+		subCommands.put(commandText, command);
 
-		getCommandParameters().put(commandName, subCommand.getParameters());
+		ArrayList<CommandParameter> parameters = new ArrayList<>();
+		parameters.add(new CommandParameter(commandText, false));
+		if(command.getSubParameters()!=null)
+			parameters.addAll(Arrays.asList(command.getSubParameters()));
+
+		getCommandParameters().put(commandText, parameters.toArray(new CommandParameter[0]));
 	}
-
-
 
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) 

@@ -46,8 +46,6 @@ public class BuyCommand implements SubCommand
 					} else {
 						sender.sendMessage(Quick.t(im_not_allow_modify_price_not_owner));
 					}
-				} else {
-//					sender.sendMessage(Quick.t(im_interaction_timeout));
 				}
 
 			}else{
@@ -61,7 +59,7 @@ public class BuyCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "buy";
 	}
@@ -73,8 +71,8 @@ public class BuyCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("buy", false)};
+		return null;
 	}
 }

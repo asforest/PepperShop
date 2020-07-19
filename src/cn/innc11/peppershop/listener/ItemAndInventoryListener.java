@@ -60,7 +60,7 @@ public class ItemAndInventoryListener implements Listener
 			if(shop==null)
 				return;
 
-			// check permission
+			// check for permission
 			if(VariousLand.existingAreaManagementPlugin())
 			{
 				VariousLand vl = VariousLand.getByLoc(chestInventory.getHolder());

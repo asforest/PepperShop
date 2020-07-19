@@ -63,7 +63,7 @@ public class StatusCommand implements SubCommand
     }
 
     @Override
-    public String getCommandName()
+    public String getSubCommandName()
     {
         return "status";
     }
@@ -75,8 +75,8 @@ public class StatusCommand implements SubCommand
     }
 
     @Override
-    public CommandParameter[] getParameters()
+    public CommandParameter[] getSubParameters()
     {
-        return new CommandParameter[]{new CommandParameter("status", false)};
+        return null;
     }
 }

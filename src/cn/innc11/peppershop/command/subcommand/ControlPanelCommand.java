@@ -29,7 +29,7 @@ public class ControlPanelCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "controlpanel";
 	}
@@ -41,8 +41,8 @@ public class ControlPanelCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("controlpanel", false)};
+		return null;
 	}
 }

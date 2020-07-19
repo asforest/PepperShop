@@ -60,7 +60,7 @@ public class PriceCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "price";
 	}
@@ -72,11 +72,8 @@ public class PriceCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{
-				new CommandParameter("price", false),
-				new CommandParameter("value", CommandParamType.FLOAT, false)
-		};
+		return new CommandParameter[]{new CommandParameter("value", CommandParamType.FLOAT, false)};
 	}
 }

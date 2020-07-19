@@ -31,7 +31,7 @@ public class ReloadCommand implements SubCommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "reload";
 	}
@@ -43,8 +43,8 @@ public class ReloadCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("reload", false)};
+		return null;
 	}
 }

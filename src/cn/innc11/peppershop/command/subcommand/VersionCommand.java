@@ -6,7 +6,10 @@ import cn.innc11.peppershop.command.SubCommand;
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.plugin.PluginDescription;
 import cn.nukkit.utils.TextFormat;
+
+import java.beans.ParameterDescriptor;
 
 public class VersionCommand implements SubCommand
 {
@@ -15,14 +18,20 @@ public class VersionCommand implements SubCommand
 	{
 		if (!(sender instanceof Player && !sender.isOp()))
 		{
-			sender.sendMessage(TextFormat.colorize(String.format(PepperShop.ins.getDescription().getDescription())));
+			PluginDescription descriptor = PepperShop.ins.getDescription();
+
+			sender.sendMessage(TextFormat.colorize(String.format("%s_v%s %s",
+					descriptor.getName(),
+					descriptor.getVersion(),
+					descriptor.getDescription()
+			)));
 		}
 
 		return true;
 	}
 
 	@Override
-	public String getCommandName()
+	public String getSubCommandName()
 	{
 		return "version";
 	}
@@ -34,8 +43,8 @@ public class VersionCommand implements SubCommand
 	}
 
 	@Override
-	public CommandParameter[] getParameters()
+	public CommandParameter[] getSubParameters()
 	{
-		return new CommandParameter[]{new CommandParameter("version", false)};
+		return null;
 	}
 }

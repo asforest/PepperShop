@@ -8,9 +8,9 @@ public interface SubCommand
 {
 	boolean onExecute(CommandSender sender, PluginCommand pluginCommand, String masterCommand, String subCommand, String[] subArgs);
 
-	String getCommandName();
+	String getSubCommandName();
 
 	String[] getAliases();
 
-	CommandParameter[] getParameters();
+	CommandParameter[] getSubParameters();
 }
