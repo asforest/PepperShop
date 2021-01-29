@@ -30,7 +30,7 @@ public class PluginConfig extends BaseConfig
 
 	@Default(intValue = 1)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_way)
-	public InteractionWay interactionWay;
+	public InteractionMethod interactionWay;
 
 	@Default(intValue = 5000, min = 2*1000, max = 10*1000, step = 500)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_time)
@@ -162,7 +162,7 @@ public class PluginConfig extends BaseConfig
 
 						for (Object v : field.getType().getEnumConstants())
 						{
-							InteractionWay object = (InteractionWay) v;
+							InteractionMethod object = (InteractionMethod) v;
 
 							if(configText.equals(object.toString()))
 							{
@@ -292,7 +292,7 @@ public class PluginConfig extends BaseConfig
 	}
 
 
-	public enum InteractionWay
+	public enum InteractionMethod
 	{
 		ChatBar("ChatBar"),
 		Both("Both"),
@@ -300,7 +300,7 @@ public class PluginConfig extends BaseConfig
 		
 		private String text;
 		
-		InteractionWay(String prettyText)
+		InteractionMethod(String prettyText)
 		{
 			this.text = prettyText;
 		}
