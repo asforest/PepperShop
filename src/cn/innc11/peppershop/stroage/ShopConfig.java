@@ -129,9 +129,9 @@ public class ShopConfig extends BaseConfig
 			String pureItemName = PepperShop.ins.itemNameTranslationConfig !=null? PepperShop.ins.itemNameTranslationConfig.getPureItemName(item):"";
 			int id = item.getId();
 			int metadata = item.getDamage();
-			String[] lore = item.getLore(); // write only, only for debug, the plugin wont read it
-			String customName = item.getCustomName(); // write only, only for debug, the plugin wont read it
-			Enchantment[] enchantments = item.getEnchantments(); // write only, only for debug, the plugin wont read it
+			String[] lore = item.getLore(); // only for debug
+			String customName = item.getCustomName(); // only for debug
+			Enchantment[] enchantments = item.getEnchantments(); // only for debug
 			String nbtTag = item.hasCompoundTag() ? Base64.getEncoder().encodeToString(item.getCompoundTag()) : null;
 
 			config.set(shopKey+".owner", shopData.owner);
@@ -150,17 +150,17 @@ public class ShopConfig extends BaseConfig
 			config.set(shopKey+".item.metadata", metadata);
 			Optional.ofNullable(nbtTag).ifPresent((o)->config.set(shopKey+".item.nbtTag", nbtTag));
 
-			if(!customName.isEmpty()) // write only, for debugging
+			if(!customName.isEmpty()) // for debugging
 			{
 				config.set(shopKey+".item.customName", customName);
 			}
 
-			if ((lore.length > 0)) // write only, for debugging
+			if ((lore.length > 0)) // for debugging
 			{
 				config.set(shopKey+".item.lore", lore);
 			}
 
-			for (Enchantment enchant : enchantments) // write only, for debugging
+			for (Enchantment enchant : enchantments) // for debugging
 			{
 				config.set(shopKey+".item.enchantments.E" + enchant.getId(), enchant.getLevel());
 			}
