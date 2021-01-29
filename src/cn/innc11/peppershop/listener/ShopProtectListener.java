@@ -80,7 +80,7 @@ public class ShopProtectListener implements Listener
 	@EventHandler
 	public void onBlockPistonChange(BlockPistonEvent e)
 	{
-		if(PepperShop.ins.pluginConfig.usingNewAPI)
+		if(PepperShop.ins.pluginConfig.usingNewApi)
 		{
 			List<Block> blocksInfluenced = e.getBlocks();
 			

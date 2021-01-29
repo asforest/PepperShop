@@ -23,7 +23,7 @@ public class PluginConfig extends BaseConfig
 	public String language;
 	
 	@Default(intValue = 1)
-	public boolean usingNewAPI;
+	public boolean usingNewApi;
 
 	@Default(intValue = 0)
 	public boolean workWithGac;
