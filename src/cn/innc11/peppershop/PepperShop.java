@@ -1,6 +1,8 @@
 package cn.innc11.peppershop;
 
 import cn.innc11.peppershop.command.PluginCommand;
+import cn.innc11.peppershop.config.PluginConfig;
+import cn.innc11.peppershop.config.ShopsConfig;
 import cn.innc11.peppershop.listener.CreateShopListener;
 import cn.innc11.peppershop.listener.FormResponseListener;
 import cn.innc11.peppershop.listener.HologramItemListener;
@@ -10,8 +12,6 @@ import cn.innc11.peppershop.listener.ShopProtectListener;
 import cn.innc11.peppershop.localization.ItemNameTranslationConfig;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.localization.Localization;
-import cn.innc11.peppershop.stroage.PluginConfig;
-import cn.innc11.peppershop.stroage.ShopsConfig;
 import cn.innc11.peppershop.utils.Quick;
 import cn.nukkit.Server;
 import cn.nukkit.plugin.PluginBase;

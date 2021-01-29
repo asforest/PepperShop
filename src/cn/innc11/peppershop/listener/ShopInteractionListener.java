@@ -11,7 +11,7 @@ import cn.innc11.peppershop.shop.SellShop;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.utils.Pair;
 import cn.innc11.peppershop.utils.Quick;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -154,14 +154,14 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 			{
 				boolean allow = true;
 				
-				if(VariousLand.existingAreaManagementPlugin())
+				if(VirtualAreaManage.existingAreaManagementPlugin())
 				{
-					VariousLand vl = VariousLand.getByLoc(e.getBlock());
+					VirtualAreaManage vl = VirtualAreaManage.getByLoc(e.getBlock());
 
 					if(vl!=null)
 					{
 						boolean hasPerm = false;
-						hasPerm |= vl.hasPermission(player.getName(), VariousLand.Permissions.build);
+						hasPerm |= vl.hasPermission(player.getName(), VirtualAreaManage.Permissions.build);
 						hasPerm |= vl.getOwner().equals(player.getName());
 						hasPerm |= (player.isOp() && PepperShop.ins.pluginConfig.operatorIgnoreBuildPermission);
 

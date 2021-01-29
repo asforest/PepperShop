@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.BaseConfig;
+import cn.innc11.peppershop.config.BaseConfig;
 import cn.innc11.peppershop.utils.Quick;
 import cn.nukkit.item.Item;
 

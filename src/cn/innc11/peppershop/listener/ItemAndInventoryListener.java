@@ -4,7 +4,7 @@ import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.utils.Quick;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
@@ -61,14 +61,14 @@ public class ItemAndInventoryListener implements Listener
 				return;
 
 			// check for permission
-			if(VariousLand.existingAreaManagementPlugin())
+			if(VirtualAreaManage.existingAreaManagementPlugin())
 			{
-				VariousLand vl = VariousLand.getByLoc(chestInventory.getHolder());
+				VirtualAreaManage vl = VirtualAreaManage.getByLoc(chestInventory.getHolder());
 
 				if(vl!=null)
 				{
 					boolean allow = false;
-					allow |= vl.hasPermission(player.getName(), VariousLand.Permissions.build);
+					allow |= vl.hasPermission(player.getName(), VirtualAreaManage.Permissions.build);
 					allow |= vl.getOwner().equals(player.getName());
 					allow |= player.isOp() && PepperShop.ins.pluginConfig.operatorIgnoreBuildPermission;
 

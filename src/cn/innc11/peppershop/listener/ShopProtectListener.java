@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.shop.Shop;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
@@ -97,7 +97,7 @@ public class ShopProtectListener implements Listener
 	@EventHandler
 	public void onInventoryMoveItem2(InventoryMoveItemEvent e)
 	{
-		if(VariousLand.existingAreaManagementPlugin() && PepperShop.ins.pluginConfig.limitHopper)
+		if(VirtualAreaManage.existingAreaManagementPlugin() && PepperShop.ins.pluginConfig.limitHopper)
 		{
 			Inventory sourceInventory = e.getInventory();
 			Inventory targetInventory = e.getTargetInventory();
@@ -107,7 +107,7 @@ public class ShopProtectListener implements Listener
 			{
 				ChestInventory chestInventory = (ChestInventory) sourceInventory;
 				Shop shop = Shop.findShopByChestPos(chestInventory.getHolder());
-				VariousLand vl = VariousLand.getByLoc(chestInventory.getHolder());
+				VirtualAreaManage vl = VirtualAreaManage.getByLoc(chestInventory.getHolder());
 
 				if(shop!=null && vl==null)
 				{
@@ -120,7 +120,7 @@ public class ShopProtectListener implements Listener
 			{
 				ChestInventory chestInventory = (ChestInventory) targetInventory;
 				Shop shop = Shop.findShopByChestPos(chestInventory.getHolder());
-				VariousLand vl = VariousLand.getByLoc(chestInventory.getHolder());
+				VirtualAreaManage vl = VirtualAreaManage.getByLoc(chestInventory.getHolder());
 
 				if(shop!=null && vl==null)
 				{

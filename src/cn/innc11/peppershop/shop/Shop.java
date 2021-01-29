@@ -3,11 +3,11 @@ package cn.innc11.peppershop.shop;
 import java.util.Random;
 
 import cn.innc11.peppershop.PepperShop;
+import cn.innc11.peppershop.config.ShopConfig;
 import cn.innc11.peppershop.localization.LangNodes;
-import cn.innc11.peppershop.stroage.ShopConfig;
 import cn.innc11.peppershop.utils.InvItem;
 import cn.innc11.peppershop.utils.Quick;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
 import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.block.Block;
@@ -215,8 +215,8 @@ public abstract class Shop
 			
 			if(PepperShop.ins.ResidencePluginLoaded)
 			{
-				VariousLand chestVLand = VariousLand.getByLoc(chest);
-				VariousLand signVLand = VariousLand.getByLoc(signPos);
+				VirtualAreaManage chestVLand = VirtualAreaManage.getByLoc(chest);
+				VirtualAreaManage signVLand = VirtualAreaManage.getByLoc(signPos);
 
 
 				if(chestVLand!=null)

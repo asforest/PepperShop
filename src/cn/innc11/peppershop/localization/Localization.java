@@ -1,7 +1,7 @@
 package cn.innc11.peppershop.localization;
 
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.BaseConfig;
+import cn.innc11.peppershop.config.BaseConfig;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopType;
 import cn.innc11.peppershop.utils.Quick;

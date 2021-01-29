@@ -1,4 +1,4 @@
-package cn.innc11.peppershop.stroage;
+package cn.innc11.peppershop.config;
 
 import java.io.File;
 import java.util.Base64;
