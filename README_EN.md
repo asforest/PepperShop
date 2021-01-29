@@ -42,6 +42,14 @@ https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
 
 1. Fix the problem that Land plugin cannot be identified
 
+#### 1.4
+
+1. Add support of 1.4.0.0-PN-ALPHA.2(1.16)
+2. Fix the problem that chest can be move by piston
+3. Fix the problem that sometime the placeholder of language can not be replaced
+4. Fix the problem that Sign can not be created automatically
+5. Add the options that can be used to set the size of the queue holding the datapacks to be sent to client
+
 ## Authors
 - [innc11](https://github.com/innc11)
 
@@ -89,7 +97,10 @@ Special note: People who have the 'build' permissions in the residence area can 
 version: 7
 
 # Language, support to load custom language files, currently comes with simplified Chinese and English
-language: cn
+language: en
+
+# If using new API, below 1.14 version needs to be set as false
+using-new-api: true
 
 # work with GAC
 # If you can accept to disable the permission detection function, you can open
@@ -102,6 +113,9 @@ interaction-way: Both
 # The waiting time of the message, the default is 5 seconds, after 5 seconds it will become a normal chat message
 # If the message is sent as a chat message, please increase this value
 interaction-timeout: 5000
+
+# The size of the queue holding the datapacks to be sent to client, double it if hologram-item can not be shown normally (like not be removed when teleport between worlds)
+packet-queue-capacity: 10000
 
 # The speed of the holographic item function to send data packets
 # It is usually recommended to set to 1000 directly, if there is an item deviation, please adjust it to between 30~100
@@ -130,6 +144,7 @@ use-item-name-translations: false
 ```
 
 ## About plugin commands
+
 Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. You can enter abbreviations for each command. For example, sell can be abbreviated as s, controlpanel can be abbreviated as [cp, c], Although the command changed from /qs to /ps, /qs is also reserved as an alias, if you do not understand this part, you can directly ignore it
 
 

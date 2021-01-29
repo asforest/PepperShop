@@ -18,6 +18,51 @@
 
 ![startup](pictures/startup.png)
 
+## 配置文件
+
+```yaml
+# 语言，支持加载自定义的语言文件，目前自带简体中文和英文（cn/en）
+language: cn
+# 是否使用新API，1.14以下请设置为false，1.14(包含)以上请设置为true
+using-new-api: false
+
+# 强制与GAC插件一起工作，但会关闭本插件的权限检查功能
+work-with-gac: false
+
+# 商店的交互方式，可用值：ChatBar、Both、Interface，分别代表仅聊天栏、全部启用、仅UI
+# 请参考 食用方法->交易 章节，推荐设置为Both
+interaction-way: Both
+
+# 商店的交互时间，如果输入价格时发现被当成普通聊天信息被发出去了，请加大此值
+interaction-timeout: 5000
+
+# 全息物品数据包的发送速率(每秒)，建议直接设置为1000，如果出现显示不正确的情况适当调低此值
+hologram-item-effect: 1000
+
+# 全息物品数据包队列的大小，如果大服出现人多时全息物品不能正常显示、移除、跨世界时，请调高此值（每次增加1万）
+packet-queue-capacity： 10000
+
+# 与Residence插件一起工作（需要先安装Residence）
+link-with-residence-plugin: true
+
+# 与Land插件一起工作（需要先安装Land）link-with-land-plugin: true
+
+# 是否只能在领地内创建商店（推荐打开）
+# 此选项依赖任意一款领地插件，如果没有安装，则没有实际效果
+only-create-shop-in-residence-area: true
+
+# OP是否可以无视领地权限打开、破坏商店# 此选项依赖任意一款领地插件，如果没有安装，则没有实际效果
+operator-ignore-build-permission: false
+
+# 漏斗是否只能在领地内才能给商店补货，此选项不会影响非商店箱子的正常传输（仅对商店有效）# 此选项依赖任意一款领地插件，如果没有安装，则没有实际效果
+# 建议打开
+limit-hopper: true
+
+# 是否使用物品翻译文件（如果你想看到中文，请参考下方的 "关于显示中文物品名"并开启此选项）
+use-item-name-translations: false
+```
+
+
 
 ## 更新记录 Change logs
 
@@ -49,6 +94,15 @@
 #### 1.3
 
 1. 修复Land插件无法被识别的问题
+
+#### 1.4
+
+1. 增加PowerNukkit-1.4.0.0-PN-ALPHA.2(1.16)版本的支持
+2. 修复商店会被活塞推动的bug
+3. 修复某些情况下会出现语言变量显示不正确的问题
+4. 修复无法自动创建商店牌子的问题
+5. 1.14以下版本再使用前请在配置文件设置using-new-api: false
+6. 增加设置发包队列大小packet-queue-capacity： 10000，默认是10k，大服可适当增加此值
 
 ## 作者 Authors
 - [innc11](https://github.com/innc11)
