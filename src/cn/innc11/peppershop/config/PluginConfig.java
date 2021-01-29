@@ -21,6 +21,9 @@ public class PluginConfig extends BaseConfig
 
 	@Default(stringValue = "cn")
 	public String language;
+	
+	@Default(intValue = 1)
+	public boolean usingNewAPI;
 
 	@Default(intValue = 0)
 	public boolean workWithGac;
@@ -74,7 +77,7 @@ public class PluginConfig extends BaseConfig
 		reload();
 
 		if(!exists())
-			save(true); // 保存默认值
+			save(true); // save default value
 	}
 
 	@Override
