@@ -1,5 +1,7 @@
 package cn.innc11.peppershop.shop;
 
+import java.util.Random;
+
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.stroage.ShopConfig;
@@ -7,6 +9,7 @@ import cn.innc11.peppershop.utils.InvItem;
 import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.variousland.VariousLand;
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
@@ -20,8 +23,6 @@ import cn.nukkit.math.BlockFace;
 import cn.nukkit.scheduler.PluginTask;
 import cn.nukkit.utils.Faceable;
 
-import java.util.Random;
-
 public abstract class Shop 
 {
 	public final ShopData shopData;
@@ -30,7 +31,7 @@ public abstract class Shop
 	{
 		shopData = PepperShop.ins.shopsConfig.getShopsConfig(getShopWorldByLocation(shopKey), false).getShopData(shopKey);
 		
-		if(shopData ==null) throw new NullPointerException("Key of Shop is Null("+shopKey+")");
+		if(shopData ==null) throw new NullPointerException("The Shop-Key can not be found in the configure file("+shopKey+")");
 	}
 
 	public ShopData getShopData()
@@ -69,9 +70,11 @@ public abstract class Shop
 	
 	public void updateSignText()
 	{
+		// delay for 5 ticks(about 0.25 second)
 		updateSignText(5);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void updateSignText(int delayTicks)
 	{
 		BlockChest blockChest = (BlockChest) getShopEntityChest().getBlock();
@@ -88,34 +91,36 @@ public abstract class Shop
 		}
 		
 		Position signPos = blockChest.getSide(chestFace);
-
-		Block signBlock = blockChest.level.getBlock(signPos);
+		Block blockSign = blockChest.level.getBlock(signPos);
 		
-		if(signBlock.getId()==Block.AIR)
+		// if there is an air-block in front of the Chest
+		if(blockSign.getId()==Block.AIR)
 		{
-			BlockWallSign signInstance = new BlockWallSign();
-			
-			signInstance.level = blockChest.level;
-			signInstance.place(Block.get(Block.WALL_SIGN).toItem(), signBlock, null, BlockFace.fromIndex(blockChest.getDamage()), 0d, 0d, 0d, null);
-		} 
-
+			BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+			blockChest.level.setBlock(signPos, Block.get(Block.WALL_SIGN, blockChest.getDamage()));
+		}
+		
 		PepperShop.ins.getServer().getScheduler().scheduleDelayedTask(new PluginTask<PepperShop>(PepperShop.ins){
 			@Override
 			public void onRun(int currentTick) 
 			{
-				updateSignTextNow();
+				updateSignTextImmediately();
 			}
 		}, delayTicks);
 	}
 	
+	@Deprecated
+	@DeprecationDetails(reason = "renamed", since = "1.3.1", replaceWith = "updateSignTextImmediately()")
 	public void updateSignTextNow()
 	{
+		updateSignTextImmediately();
+	}
+	
+	public void updateSignTextImmediately()
+	{
 		BlockEntitySign entitySign = getShopEntitySign();
-		
-		String[] bt = PepperShop.ins.localization.signText.get(this);
 
-		if(entitySign!=null)
-			entitySign.setText(bt[0], bt[1], bt[2], bt[3]);
+		entitySign.setText(PepperShop.ins.localization.signText.get(this));
 	}
 	
 	
@@ -148,14 +153,12 @@ public abstract class Shop
 		Item item = getItem();
 
 		if(shopData.type==ShopType.BUY)
-		{
 			return InvItem.getItemInInventoryCount(getShopEntityChest().getInventory(), item);
-		} else {
-			return getShopEntityChest().getInventory().getFreeSpace(item);
-		}
+		
+		return getShopEntityChest().getInventory().getFreeSpace(item);
 	}
 
-	public void destroyShopSign()
+	public void destroySignOnly()
 	{
 		Block signBlock = getShopEntitySign().getBlock();
 
@@ -165,20 +168,14 @@ public abstract class Shop
 		}
 	}
 
-	@Deprecated
-	public void destroyShop(Player player)
+	public boolean destroy(Player player)
 	{
 		if (PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).destroyShop(shopData, player))
 		{
-			destroyShopSign();
+			destroySignOnly();
+			return true;
 		}
-	}
-
-	@Deprecated
-	public void removeShop()
-	{
-		destroyShopSign();
-		PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).removeShop(shopData);
+		return false;
 	}
 
 	public String convertShopLocationByPos()
@@ -191,6 +188,7 @@ public abstract class Shop
 
 	// static methods
 	
+	@SuppressWarnings("deprecation")
 	public static Shop placeShop(BlockChest chest, float price, Player player)
 	{
 		Shop SHOP = null;
@@ -252,10 +250,8 @@ public abstract class Shop
 
 				if(itemInHand.getId()!=Item.AIR)
 				{
-					BlockWallSign signInstance = new BlockWallSign();
-
-					signInstance.level = chestBlock.level;
-					signInstance.place(Block.get(Block.WALL_SIGN).toItem(), signBlock, null, BlockFace.fromIndex(chestBlock.getDamage()), 0d, 0d, 0d, player);
+					BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+					chestBlock.level.setBlock(signPos, Block.get(Block.WALL_SIGN, chestBlock.getDamage()));
 
 					ShopData sd = new ShopData();
 
@@ -367,6 +363,7 @@ public abstract class Shop
 			case NORTH: chestFace = BlockFace.SOUTH; break;
 			case WEST: chestFace = BlockFace.EAST; break;
 			case EAST: chestFace = BlockFace.WEST; break;
+			default: break;
 		}
 
 		Position chestPos = signPos.getSide(chestFace);

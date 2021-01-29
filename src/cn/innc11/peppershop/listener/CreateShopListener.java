@@ -1,11 +1,14 @@
 package cn.innc11.peppershop.listener;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.ShopConfig;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.pluginEvent.PlayerCreateShopEvent;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopData;
+import cn.innc11.peppershop.stroage.ShopConfig;
 import cn.innc11.peppershop.utils.Pair;
 import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.variousland.VariousLand;
@@ -21,9 +24,6 @@ import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerInteractEvent.Action;
 import cn.nukkit.permission.PermissibleBase;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
 public class CreateShopListener implements Listener, ShopInteractionTimer
 {
@@ -121,7 +121,7 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 		}
 	}
 
-	// for Creative Mode
+	// for Creative-Mode
 	@EventHandler
 	public void onPlayerBrokeBlock(BlockBreakEvent e)
 	{

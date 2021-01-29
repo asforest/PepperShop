@@ -2,3 +2,6 @@
 target/
 PepperShop.iml
 /out
+/bin/
+/.classpath
+/.project

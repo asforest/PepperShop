@@ -9,10 +9,9 @@ import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.shop.BuyShop;
 import cn.innc11.peppershop.shop.SellShop;
 import cn.innc11.peppershop.shop.Shop;
-import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.utils.Pair;
+import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.variousland.VariousLand;
-
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -182,7 +181,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 				
 				if(allow)
 				{
-					if(PepperShop.ins.shopsConfig.getShopsConfig(shop, false).destroyShop(shop.shopData, player))
+					if(shop.destroy(player))
 					{
 						PepperShop.ins.hologramListener.removeItemEntity(Server.getInstance().getOnlinePlayers().values(), shop.shopData);
 						if(isSign) e.setDrops(new Item[0]);

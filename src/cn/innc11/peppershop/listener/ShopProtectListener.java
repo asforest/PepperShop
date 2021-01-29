@@ -1,5 +1,7 @@
 package cn.innc11.peppershop.listener;
 
+import java.util.ArrayList;
+
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.variousland.VariousLand;
@@ -9,13 +11,11 @@ import cn.nukkit.block.BlockWallSign;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBurnEvent;
-import cn.nukkit.event.block.BlockPistonChangeEvent;
+import cn.nukkit.event.block.BlockPistonEvent;
 import cn.nukkit.event.entity.EntityExplodeEvent;
 import cn.nukkit.event.inventory.InventoryMoveItemEvent;
 import cn.nukkit.inventory.ChestInventory;
 import cn.nukkit.inventory.Inventory;
-
-import java.util.ArrayList;
 
 public class ShopProtectListener implements Listener 
 {
@@ -73,7 +73,7 @@ public class ShopProtectListener implements Listener
 	}
 	
 	@EventHandler
-	public void onBlockPistonChange(BlockPistonChangeEvent e)
+	public void onBlockPistonChange(BlockPistonEvent e)
 	{
 		Block block = e.getBlock();
 		

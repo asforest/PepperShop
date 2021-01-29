@@ -1,5 +1,10 @@
 package cn.innc11.peppershop.stroage;
 
+import java.io.File;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Optional;
+
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.pluginEvent.PlayerRemoveShopEvent;
@@ -9,11 +14,6 @@ import cn.innc11.peppershop.utils.Quick;
 import cn.nukkit.Player;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.enchantment.Enchantment;
-
-import java.io.File;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Optional;
 
 public class ShopConfig extends BaseConfig
 {
@@ -53,7 +53,7 @@ public class ShopConfig extends BaseConfig
 
 		if(!event.isCancelled())
 		{
-			shopDataMapping.get(sd.getShopLocation()).getShop().destroyShopSign();
+			shopDataMapping.get(sd.getShopLocation()).getShop().destroySignOnly();
 			shopDataMapping.remove(sd.getShopLocation());
 			save();
 
