@@ -1,10 +1,15 @@
 package cn.innc11.peppershop.listener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.errorprone.annotations.Var;
 
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.shop.Shop;
+import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
+import cn.nukkit.Nukkit;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
@@ -56,42 +61,57 @@ public class ShopProtectListener implements Listener
 		Block block = event.getBlock();
 		
 		if(block instanceof BlockChest)
-		 {
-			 Shop shop = Shop.findShopByChest(block);
-			 
-			 if(shop!=null)
+		{
+			 if(Shop.findShopByChest(block)!=null)
+			 {
 				 event.setCancelled();
-		 }
+			 }
+		}
 		 
-		 if(block instanceof BlockWallSign)
-		 {
-			 Shop shop = Shop.findShopBySign(block);
-			 
-			 if(shop!=null)
+		if(block instanceof BlockWallSign)
+		{
+			 if(Shop.findShopBySign(block)!=null)
+			 {
 				 event.setCancelled();
+			 }
 		 }
 	}
 	
 	@EventHandler
 	public void onBlockPistonChange(BlockPistonEvent e)
 	{
-		Block block = e.getBlock();
-		
-		if(block instanceof BlockChest)
-		 {
-			 Shop shop = Shop.findShopByChest(block);
+		if(PepperShop.ins.pluginConfig.usingNewAPI)
+		{
+			List<Block> blocksInfluenced = e.getBlocks();
+			
+			blocksInfluenced.removeIf((el) -> {
+				boolean existsChest = Shop.findShopByChestPos(el) != null;
+				boolean existsSign =  Shop.findShopBySignPos(el) != null;
+				
+				return !(existsChest || existsSign);
+			});
+			
+			if(blocksInfluenced.size() > 0)
+				e.setCancelled();
+		} else {
+			Block block = e.getBlock();
+			
+			if(block instanceof BlockChest)
+			 {
+				 Shop shop = Shop.findShopByChest(block);
+				 
+				 if(shop!=null)
+					 e.setCancelled();
+			 }
 			 
-			 if(shop!=null)
-				 e.setCancelled();
-		 }
-		 
-		 if(block instanceof BlockWallSign)
-		 {
-			 Shop shop = Shop.findShopBySign(block);
-			 
-			 if(shop!=null)
-				 e.setCancelled();
-		 }
+			 if(block instanceof BlockWallSign)
+			 {
+				 Shop shop = Shop.findShopBySign(block);
+				 
+				 if(shop!=null)
+					 e.setCancelled();
+			 }
+		}
 	}
 
 	@EventHandler
