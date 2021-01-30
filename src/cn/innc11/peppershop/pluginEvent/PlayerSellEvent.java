@@ -42,7 +42,7 @@ public class PlayerSellEvent extends PlayerEvent implements Cancellable
 
     public float getTransactionAmount()
     {
-        return count * shop.getShopData().price;
+        return count * shop.getRawData().price;
     }
 
     public String getShopOwner()

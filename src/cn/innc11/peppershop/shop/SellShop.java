@@ -35,9 +35,9 @@ public class SellShop extends Shop
 		Item item = getItem();
 		item.setCount(count);
 		PlayerInventory playerInv = player.getInventory();
-		ChestInventory shopChestInventory = getShopEntityChest().getRealInventory();
+		ChestInventory shopChestInventory = getEntityChest().getRealInventory();
 
-		if(getShopEntityChest()!=null)
+		if(getEntityChest()!=null)
 		{
 			if(shopOwnerMoney >= price || shopData.serverShop)
 			{
@@ -86,7 +86,7 @@ public class SellShop extends Shop
 				} else {
 					player.sendMessage(Quick.t(LangNodes.im_sellshop_stock_full,
 							"COUNT", String.valueOf(count),
-							"MAX", String.valueOf(getShopEntityChest().getInventory().getFreeSpace(item))));
+							"MAX", String.valueOf(getEntityChest().getInventory().getFreeSpace(item))));
 				}
 
 			} else {
@@ -101,7 +101,7 @@ public class SellShop extends Shop
 	@Override
 	public int getMaxTransactionVolume(float playerMoney, int playerItemCount)
 	{
-		int itemFree = getShopEntityChest().getInventory().getFreeSpace(getItem());
+		int itemFree = getEntityChest().getInventory().getFreeSpace(getItem());
 		int a = (int) (EconomyAPI.getInstance().myMoney(shopData.owner) / shopData.price);
 		
 		if(shopData.serverShop)

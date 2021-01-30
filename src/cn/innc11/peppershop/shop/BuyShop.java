@@ -34,10 +34,10 @@ public class BuyShop extends Shop {
 		Item item = getItem();
 		item.setCount(count);
 		PlayerInventory playerInv = player.getInventory();
-		ChestInventory shopChestInventory = getShopEntityChest().getRealInventory();
+		ChestInventory shopChestInventory = getEntityChest().getRealInventory();
 		int itemCountInChest = InvItem.getItemInInventoryCount(shopChestInventory, item);
 
-		if(getShopEntityChest()!=null)
+		if(getEntityChest()!=null)
 		{
 			if(itemCountInChest >= count || shopData.serverShop)
 			{
@@ -58,7 +58,7 @@ public class BuyShop extends Shop {
 							{
 								economyAPI.addMoney(shopData.owner, price);
 
-								getShopEntityChest().getInventory().removeItem(item);
+								getEntityChest().getInventory().removeItem(item);
 
 								if(shopOwner!=null) {
 									shopOwner.sendMessage(Quick.t(LangNodes.im_buyshop_owner,
@@ -102,7 +102,7 @@ public class BuyShop extends Shop {
 	@Override
 	public int getMaxTransactionVolume(float playerMoney, int playerItemCount)
 	{
-		int itemCountInChest = InvItem.getItemInInventoryCount(getShopEntityChest().getInventory(), getItem());
+		int itemCountInChest = InvItem.getItemInInventoryCount(getEntityChest().getInventory(), getItem());
 		int a = (int) (playerMoney / shopData.price);
 		
 		if(shopData.serverShop)

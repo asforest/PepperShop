@@ -1,6 +1,6 @@
 name: PepperShop
 main: cn.innc11.peppershop.PepperShop
-version: "1.4"
+version: "1.4.1"
 author: innc11
 api: ["1.0.0"]
 load: POSTWORLD

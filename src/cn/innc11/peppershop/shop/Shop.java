@@ -34,36 +34,36 @@ public abstract class Shop
 		if(shopData ==null) throw new NullPointerException("The Shop-Key can not be found in the configure file("+shopKey+")");
 	}
 
-	public ShopData getShopData()
+	public ShopData getRawData()
 	{
 		return shopData;
 	}
 
-	public Level getLevel()
+	public Level getWorld()
 	{
 		return PepperShop.ins.getServer().getLevelByName(shopData.world);
 	}
 
 	public Position getChestPosition()
 	{
-		return new Position(shopData.chestX, shopData.chestY, shopData.chestZ, getLevel());
+		return new Position(shopData.chestX, shopData.chestY, shopData.chestZ, getWorld());
 	}
 
 	public Position getSignPosition()
 	{
-		return new Position(shopData.signX, shopData.chestY, shopData.signZ, getLevel());
+		return new Position(shopData.signX, shopData.chestY, shopData.signZ, getWorld());
 	}
 
-	public BlockEntityChest getShopEntityChest()
+	public BlockEntityChest getEntityChest()
 	{
-		BlockEntity entityBlock = getLevel().getBlockEntity(getChestPosition());
+		BlockEntity entityBlock = getWorld().getBlockEntity(getChestPosition());
 		
 		return (entityBlock instanceof BlockEntityChest) ? (BlockEntityChest)entityBlock : null;
 	}
 	
-	public BlockEntitySign getShopEntitySign()
+	public BlockEntitySign getEntitySign()
 	{
-		BlockEntity signEntity = getLevel().getBlockEntity(getSignPosition());
+		BlockEntity signEntity = getWorld().getBlockEntity(getSignPosition());
 		
 		return (signEntity instanceof BlockEntitySign) ? (BlockEntitySign)signEntity : null;
 	}
@@ -77,10 +77,9 @@ public abstract class Shop
 	@SuppressWarnings("deprecation")
 	public void updateSignText(int delayTicks)
 	{
-		BlockChest blockChest = (BlockChest) getShopEntityChest().getBlock();
+		BlockChest blockChest = (BlockChest) getEntityChest().getBlock();
 		
 		BlockFace chestFace = BlockFace.SOUTH;
-		
 		switch (blockChest.getBlockFace()) 
 		{
 			case SOUTH: chestFace = BlockFace.WEST; break;
@@ -118,7 +117,7 @@ public abstract class Shop
 	
 	public void updateSignTextImmediately()
 	{
-		BlockEntitySign entitySign = getShopEntitySign();
+		BlockEntitySign entitySign = getEntitySign();
 
 		entitySign.setText(PepperShop.ins.localization.signText.get(this));
 	}
@@ -153,14 +152,14 @@ public abstract class Shop
 		Item item = getItem();
 
 		if(shopData.type==ShopType.BUY)
-			return InvItem.getItemInInventoryCount(getShopEntityChest().getInventory(), item);
+			return InvItem.getItemInInventoryCount(getEntityChest().getInventory(), item);
 		
-		return getShopEntityChest().getInventory().getFreeSpace(item);
+		return getEntityChest().getInventory().getFreeSpace(item);
 	}
 
-	public void destroySignOnly()
+	public void destroySign()
 	{
-		Block signBlock = getShopEntitySign().getBlock();
+		Block signBlock = getEntitySign().getBlock();
 
 		if(signBlock.getId()==Block.WALL_SIGN)
 		{
@@ -170,12 +169,7 @@ public abstract class Shop
 
 	public boolean destroy(Player player)
 	{
-		if (PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).destroyShop(shopData, player))
-		{
-			destroySignOnly();
-			return true;
-		}
-		return false;
+		return PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).destroyShop(shopData, player);
 	}
 
 	public String convertShopLocationByPos()

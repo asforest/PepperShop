@@ -53,7 +53,7 @@ public class ShopConfig extends BaseConfig
 
 		if(!event.isCancelled())
 		{
-			shopDataMapping.get(sd.getShopLocation()).getShop().destroySignOnly();
+			shopDataMapping.get(sd.getShopLocation()).getShop().destroySign();
 			shopDataMapping.remove(sd.getShopLocation());
 			save();
 
