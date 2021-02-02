@@ -22,9 +22,6 @@ public class PluginConfig extends BaseConfig
 	@Default(stringValue = "cn")
 	public String language;
 	
-	@Default(intValue = 1)
-	public boolean usingNewApi;
-
 	@Default(intValue = 0)
 	public boolean workWithGac;
 

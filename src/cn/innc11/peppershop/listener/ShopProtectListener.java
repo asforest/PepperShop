@@ -80,38 +80,18 @@ public class ShopProtectListener implements Listener
 	@EventHandler
 	public void onBlockPistonChange(BlockPistonEvent e)
 	{
-		if(PepperShop.ins.pluginConfig.usingNewApi)
-		{
-			List<Block> blocksInfluenced = e.getBlocks();
+		List<Block> blocksInfluenced = e.getBlocks();
+		
+		blocksInfluenced.removeIf((el) -> {
+			boolean existsChest = Shop.findShopByChestPos(el) != null;
+			boolean existsSign =  Shop.findShopBySignPos(el) != null;
 			
-			blocksInfluenced.removeIf((el) -> {
-				boolean existsChest = Shop.findShopByChestPos(el) != null;
-				boolean existsSign =  Shop.findShopBySignPos(el) != null;
-				
-				return !(existsChest || existsSign);
-			});
-			
-			if(blocksInfluenced.size() > 0)
-				e.setCancelled();
-		} else {
-			Block block = e.getBlock();
-			
-			if(block instanceof BlockChest)
-			 {
-				 Shop shop = Shop.findShopByChest(block);
-				 
-				 if(shop!=null)
-					 e.setCancelled();
-			 }
-			 
-			 if(block instanceof BlockWallSign)
-			 {
-				 Shop shop = Shop.findShopBySign(block);
-				 
-				 if(shop!=null)
-					 e.setCancelled();
-			 }
-		}
+			return !(existsChest || existsSign);
+		});
+		
+		if(blocksInfluenced.size() > 0)
+			e.setCancelled();
+		
 	}
 
 	@EventHandler
