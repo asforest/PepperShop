@@ -103,7 +103,7 @@ public class Localization extends BaseConfig
 			reg = "\\{" + reg;
 			reg = reg + "\\}";
 			String replacement = argsPair[i*2+1].toString();
-			cookedStr = rawStr.replaceAll(reg, replacement);
+			cookedStr = cookedStr.replaceAll(reg, replacement);
 		}
 
 		return TextFormat.colorize(cookedStr);
