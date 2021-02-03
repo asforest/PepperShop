@@ -45,7 +45,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 				
 				PepperShop.ins.hologramListener.addShopItemEntity(Server.getInstance().getOnlinePlayers().values(), shop.shopData);
 
-				switch (PepperShop.ins.pluginConfig.interactionWay)
+				switch (PepperShop.ins.pluginConfig.interactionMethod)
 				{
 					case Both:
 					{

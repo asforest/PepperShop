@@ -30,7 +30,7 @@ public class PluginConfig extends BaseConfig
 
 	@Default(intValue = 1)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_way)
-	public InteractionMethod interactionWay;
+	public InteractionMethod interactionMethod;
 
 	@Default(intValue = 5000, min = 2*1000, max = 10*1000, step = 500)
 	@PluginControlPanel.PresentInForm(lang = LangNodes.cp_interaction_time)
