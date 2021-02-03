@@ -49,6 +49,7 @@ https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
 3. Fix the problem that sometime the placeholder of language can not be replaced
 4. Fix the problem that Sign can not be created automatically
 5. Add the options that can be used to set the size of the queue holding the datapacks to be sent to client
+6. Rename config field: interactionWay -> interactionMethod
 
 ## Authors
 - [innc11](https://github.com/innc11)
@@ -103,9 +104,9 @@ language: en
 # If you can accept to disable the permission detection function, you can open
 work-with-gac: false
 
-# interaction way，Please refer to the "How to use -> Trading" section，Available values: (ChatBar|Both|Interface)
+# interaction method, Please refer to the "How to use -> Trading" section，Available values: (ChatBar|Both|Interface)
 # Recommended to set to 'Both', you can use the interface and chat bar at the same time
-interaction-way: Both
+interaction-method: Both
 
 # The waiting time of the message, the default is 5 seconds, after 5 seconds it will become a normal chat message
 # If the message is sent as a chat message, please increase this value
