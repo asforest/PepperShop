@@ -42,7 +42,7 @@ https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
 
 1. Fix the problem that Land plugin cannot be identified
 
-#### PN1.3.2
+#### 1.3.2
 
 1. Add support of 1.4.0.0-PN-ALPHA.2(1.16)
 2. Fix the problem that chest can be move by piston
