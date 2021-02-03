@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 
 public class PluginConfig extends BaseConfig
 {
-	@Default(intValue = 7)
+	@Default(intValue = 8)
 	public int version;
 
 	@Default(stringValue = "cn")
