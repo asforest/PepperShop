@@ -1,22 +1,17 @@
 package cn.innc11.peppershop.listener;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.errorprone.annotations.Var;
 
 import cn.innc11.peppershop.PepperShop;
 import cn.innc11.peppershop.shop.Shop;
-import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
-import cn.nukkit.Nukkit;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBurnEvent;
-import cn.nukkit.event.block.BlockPistonEvent;
+import cn.nukkit.event.block.BlockPistonChangeEvent;
 import cn.nukkit.event.entity.EntityExplodeEvent;
 import cn.nukkit.event.inventory.InventoryMoveItemEvent;
 import cn.nukkit.inventory.ChestInventory;
@@ -78,20 +73,25 @@ public class ShopProtectListener implements Listener
 	}
 	
 	@EventHandler
-	public void onBlockPistonChange(BlockPistonEvent e)
+	public void onBlockPistonChange(BlockPistonChangeEvent e)
 	{
-		List<Block> blocksInfluenced = e.getBlocks();
+		Block block = e.getBlock();
 		
-		blocksInfluenced.removeIf((el) -> {
-			boolean existsChest = Shop.findShopByChestPos(el) != null;
-			boolean existsSign =  Shop.findShopBySignPos(el) != null;
-			
-			return !(existsChest || existsSign);
-		});
-		
-		if(blocksInfluenced.size() > 0)
-			e.setCancelled();
-		
+		if(block instanceof BlockChest)
+		 {
+			 Shop shop = Shop.findShopByChest(block);
+			 
+			 if(shop!=null)
+				 e.setCancelled();
+		 }
+		 
+		 if(block instanceof BlockWallSign)
+		 {
+			 Shop shop = Shop.findShopBySign(block);
+			 
+			 if(shop!=null)
+				 e.setCancelled();
+		 }
 	}
 
 	@EventHandler

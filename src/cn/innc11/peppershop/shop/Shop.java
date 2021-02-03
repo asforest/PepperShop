@@ -9,7 +9,6 @@ import cn.innc11.peppershop.utils.InvItem;
 import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
-import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
@@ -19,7 +18,9 @@ import cn.nukkit.blockentity.BlockEntitySign;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.scheduler.PluginTask;
 import cn.nukkit.utils.Faceable;
 
@@ -95,7 +96,14 @@ public abstract class Shop
 		// if there is an air-block in front of the Chest
 		if(blockSign.getId()==Block.AIR)
 		{
-			BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+			FullChunk chunk = (FullChunk)signPos.getLevel().getChunk(signPos.getFloorX() >> 4, signPos.getFloorZ() >> 4);
+			CompoundTag nbt =  (new CompoundTag())
+			      .putString("id", BlockEntity.SIGN)
+			      .putInt("x", signPos.getFloorX())
+			      .putInt("y", signPos.getFloorY())
+			      .putInt("z", signPos.getFloorZ());
+			
+			BlockEntity.createBlockEntity(BlockEntity.SIGN, chunk, nbt);
 			blockChest.level.setBlock(signPos, Block.get(Block.WALL_SIGN, blockChest.getDamage()));
 		}
 		
@@ -109,7 +117,7 @@ public abstract class Shop
 	}
 	
 	@Deprecated
-	@DeprecationDetails(reason = "renamed", since = "1.3.1", replaceWith = "updateSignTextImmediately()")
+	// @DeprecationDetails(reason = "renamed", since = "1.3.1", replaceWith = "updateSignTextImmediately()")
 	public void updateSignTextNow()
 	{
 		updateSignTextImmediately();
@@ -244,7 +252,14 @@ public abstract class Shop
 
 				if(itemInHand.getId()!=Item.AIR)
 				{
-					BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+					FullChunk chunk = (FullChunk)signPos.getLevel().getChunk(signPos.getFloorX() >> 4, signPos.getFloorZ() >> 4);
+					CompoundTag nbt =  (new CompoundTag())
+					      .putString("id", BlockEntity.SIGN)
+					      .putInt("x", signPos.getFloorX())
+					      .putInt("y", signPos.getFloorY())
+					      .putInt("z", signPos.getFloorZ());
+					  
+					BlockEntity.createBlockEntity(BlockEntity.SIGN, chunk, nbt);
 					chestBlock.level.setBlock(signPos, Block.get(Block.WALL_SIGN, chestBlock.getDamage()));
 
 					ShopData sd = new ShopData();
