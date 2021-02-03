@@ -57,7 +57,7 @@ public class ShopData
 			equal &= world.equals(sd.world);
 			equal &= serverShop == sd.serverShop;
 			equal &= item.equalsExact(sd.item);
-			equal &= shopRandomId == shopRandomId;
+			equal &= shopRandomId == sd.shopRandomId;
 
 			return equal;
 		}else{
