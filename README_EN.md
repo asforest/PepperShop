@@ -42,7 +42,7 @@ https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
 
 1. Fix the problem that Land plugin cannot be identified
 
-#### 1.4
+#### PN1.3.2
 
 1. Add support of 1.4.0.0-PN-ALPHA.2(1.16)
 2. Fix the problem that chest can be move by piston
@@ -99,9 +99,6 @@ version: 7
 # Language, support to load custom language files, currently comes with simplified Chinese and English
 language: en
 
-# If using new API, below 1.14 version needs to be set as false
-using-new-api: true
-
 # work with GAC
 # If you can accept to disable the permission detection function, you can open
 work-with-gac: false
@@ -143,19 +140,22 @@ limit-hopper: true
 use-item-name-translations: false
 ```
 
-## About plugin commands
+## Plugin commands
 
-Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. You can enter abbreviations for each command. For example, sell can be abbreviated as s, controlpanel can be abbreviated as [cp, c], Although the command changed from /qs to /ps, /qs is also reserved as an alias, if you do not understand this part, you can directly ignore it
+Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. 
 
+## Working with GAC plugin
 
-## About GAC plugin
-I have tried several ways to be compatible with GAC, but they have no effect. If you have installed GAC, please set it up in config.yml after the first startup to force coexistence with GAC, otherwise the plugin It will not load. BTW, pay attention to the output information about this plugin in the console for the first startup.
+I have tried several ways to be compatible with GAC, but it doesn't work. If you have installed the GAC, set `work-with-gac: true` in the `config.yml` after the first startup.
 
-## About Hoppers
-Please do not place the shop on the outermost layer of the Residence area (including six directions). People with ulterior motives may use a hopper to stuff your chests with useless items(please place it at least from the edge On the second layer)
+## Importing data from QuickShopx
 
-## About importing data from QuickShopx
-This plug-in supports quickshopx's shop-data files (including all players' shop data), that is, just copy the 'shops' folder to the folder of this plugin. This plugin can read them, but the configuration file, language file, and item-name-translation file are not supported. , You need to use the files provided in this page, this section will take a few minutes to reconfigure, almost no big impact
+You can import the data-folder of the quickshopx plugin through copying the `shops` folder to inside `PepperShop` folder
 
-## About Land plugin：
-The Land plugin does not have'build' permission. I made a simple conversion. When you have both the'place' permission and the'break' permission, you are equivalent to having the'build' permission. Do not give these two permissions to strangers. In addition, in the mechanism of Land , OP defaults to all permissions of all residences, then op can open all chests by default
+## Compat with Land plugin：
+
+The Land plugin does not have `build` permission natively. 
+
+You will have the `build` permission if you have both the `place` and the `break` permission.
+
+In addition, with the mechanism of Land plugin, OPs possess all the permissions of Land plugin by default , which means Ops can open all chests.

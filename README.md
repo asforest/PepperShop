@@ -1,8 +1,8 @@
 # [PepperShop](https://github.com/innc11/PepperShop)
 
-一个Nukkit插件,基于 [QuickShopX](https://github.com/innc11/QuickShopX) 开发,QuickShopX又是基于是由原作者 [WetABQ](https://github.com/WetABQ) 的QuickShop插件所开发而来
+[English](README_EN.md)
 
-[English Edtion](README_EN.md)
+一个Nukkit插件,基于 [QuickShopX](https://github.com/innc11/QuickShopX) 开发,QuickShopX又是基于是由原作者 [WetABQ](https://github.com/WetABQ) 的QuickShop插件所开发而来
 
 ## 图片 Preview
 
@@ -23,8 +23,6 @@
 ```yaml
 # 语言，支持加载自定义的语言文件，目前自带简体中文和英文（cn/en）
 language: cn
-# 是否使用新API，1.14以下请设置为false，1.14(包含)以上请设置为true
-using-new-api: false
 
 # 强制与GAC插件一起工作，但会关闭本插件的权限检查功能
 work-with-gac: false
@@ -40,12 +38,13 @@ interaction-timeout: 5000
 hologram-item-effect: 1000
 
 # 全息物品数据包队列的大小，如果大服出现人多时全息物品不能正常显示、移除、跨世界时，请调高此值（每次增加1万）
-packet-queue-capacity： 10000
+packet-queue-capacity: 10000
 
 # 与Residence插件一起工作（需要先安装Residence）
 link-with-residence-plugin: true
 
-# 与Land插件一起工作（需要先安装Land）link-with-land-plugin: true
+# 与Land插件一起工作（需要先安装Land）
+link-with-land-plugin: true
 
 # 是否只能在领地内创建商店（推荐打开）
 # 此选项依赖任意一款领地插件，如果没有安装，则没有实际效果
@@ -62,7 +61,45 @@ limit-hopper: true
 use-item-name-translations: false
 ```
 
+### 插件指令
 
+主指令：`/ps [子命令]`、别名：`/qs`
+
+| 指令          | 用途                                 | 权限   |
+| ------------- | ------------------------------------ | ------ |
+| `/ps help`    | 输出帮助信息                         | 所有人 |
+| `/ps buy`     | 设置商店为出售类型                   | 所有人 |
+| `/ps sell`    | 设置商店为回收类型                   | 所有人 |
+| `/ps price`   | 设置商店的单价                       | 所有人 |
+| `/ps server`  | 设置为服务器商店(无限库存)           | 管理员 |
+| `/ps version` | 输出插件版本信息                     | 管理员 |
+| `/ps cp`      | 打开插件的配置面板(UI)               | 管理员 |
+| `/ps reload`  | 重新加载所有配置文件（数据文件除外） | 管理员 |
+
+每个子命令都可以进行简写，比如`/ps help`可以简写成`/ps h`，`/ps buy`可以简写成`/ps b`等，可以使用`/ps help`输出所有简写命令
+
+## GAC兼容
+
+需要在`config.yml`里设置`work-with-gac: true`，作为兼容的代价，权限检查功能会关闭，如果不进行此项设置，本插件不会启动
+
+## 领地插件兼容
+
+`PepperShop`同时支持`Residence`领地插件和`Land`领地插件，两者任选其一即可，不要同时加载，会出现一些想不到的问题
+
+Land插件没有原生的`build`权限，如果同时拥有破坏方块权限和放置方块权限时就相当于拥有了`build`权限，两者缺一不可
+
+### 从QuickShopx导入数据
+
+本插件支持quickshopx的商店数据文件，将shops文件夹复制到PepperShop目录里即可，但是不支持配置文件和语言文件，这部分需要手动配置一下
+
+### 显示中文物品名
+
+1. 手动下载 `item-translations.yml `文件后放入插件文件夹
+2. 使用指令`/ps r`，op后台均可
+3. 在游戏内使用指令`/ps cp`打开配置面板
+4. 打开`使用翻译的物品名`开关，点击提交按钮
+
+如果面板没有显示对应的开关请检查文件是否放到了正确的位置
 
 ## 更新记录 Change logs
 
@@ -95,7 +132,7 @@ use-item-name-translations: false
 
 1. 修复Land插件无法被识别的问题
 
-#### 1.4
+#### PN1.3.2
 
 1. 增加PowerNukkit-1.4.0.0-PN-ALPHA.2(1.16)版本的支持
 2. 修复商店会被活塞推动的bug
