@@ -1,12 +1,12 @@
-package cn.innc11.peppershop.variousland;
+package cn.innc11.peppershop.virtualLand;
 
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 
-public class MappedResidence extends VariousLand
+public class VirtualResidence extends VirtualAreaManage
 {
 	public ClaimedResidence res;
 
-	public MappedResidence(ClaimedResidence res)
+	public VirtualResidence(ClaimedResidence res)
 	{
 		this.res = res;
 	}

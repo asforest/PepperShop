@@ -1,12 +1,15 @@
 package cn.innc11.peppershop.shop;
 
+import java.util.Random;
+
 import cn.innc11.peppershop.PepperShop;
+import cn.innc11.peppershop.config.ShopConfig;
 import cn.innc11.peppershop.localization.LangNodes;
-import cn.innc11.peppershop.stroage.ShopConfig;
 import cn.innc11.peppershop.utils.InvItem;
 import cn.innc11.peppershop.utils.Quick;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockChest;
 import cn.nukkit.block.BlockWallSign;
@@ -20,8 +23,6 @@ import cn.nukkit.math.BlockFace;
 import cn.nukkit.scheduler.PluginTask;
 import cn.nukkit.utils.Faceable;
 
-import java.util.Random;
-
 public abstract class Shop 
 {
 	public final ShopData shopData;
@@ -30,54 +31,55 @@ public abstract class Shop
 	{
 		shopData = PepperShop.ins.shopsConfig.getShopsConfig(getShopWorldByLocation(shopKey), false).getShopData(shopKey);
 		
-		if(shopData ==null) throw new NullPointerException("Key of Shop is Null("+shopKey+")");
+		if(shopData ==null) throw new NullPointerException("The Shop-Key can not be found in the configure file("+shopKey+")");
 	}
 
-	public ShopData getShopData()
+	public ShopData getRawData()
 	{
 		return shopData;
 	}
 
-	public Level getLevel()
+	public Level getWorld()
 	{
 		return PepperShop.ins.getServer().getLevelByName(shopData.world);
 	}
 
 	public Position getChestPosition()
 	{
-		return new Position(shopData.chestX, shopData.chestY, shopData.chestZ, getLevel());
+		return new Position(shopData.chestX, shopData.chestY, shopData.chestZ, getWorld());
 	}
 
 	public Position getSignPosition()
 	{
-		return new Position(shopData.signX, shopData.chestY, shopData.signZ, getLevel());
+		return new Position(shopData.signX, shopData.chestY, shopData.signZ, getWorld());
 	}
 
-	public BlockEntityChest getShopEntityChest()
+	public BlockEntityChest getEntityChest()
 	{
-		BlockEntity entityBlock = getLevel().getBlockEntity(getChestPosition());
+		BlockEntity entityBlock = getWorld().getBlockEntity(getChestPosition());
 		
 		return (entityBlock instanceof BlockEntityChest) ? (BlockEntityChest)entityBlock : null;
 	}
 	
-	public BlockEntitySign getShopEntitySign()
+	public BlockEntitySign getEntitySign()
 	{
-		BlockEntity signEntity = getLevel().getBlockEntity(getSignPosition());
+		BlockEntity signEntity = getWorld().getBlockEntity(getSignPosition());
 		
 		return (signEntity instanceof BlockEntitySign) ? (BlockEntitySign)signEntity : null;
 	}
 	
 	public void updateSignText()
 	{
+		// delay for 5 ticks(about 0.25 second)
 		updateSignText(5);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void updateSignText(int delayTicks)
 	{
-		BlockChest blockChest = (BlockChest) getShopEntityChest().getBlock();
+		BlockChest blockChest = (BlockChest) getEntityChest().getBlock();
 		
 		BlockFace chestFace = BlockFace.SOUTH;
-		
 		switch (blockChest.getBlockFace()) 
 		{
 			case SOUTH: chestFace = BlockFace.WEST; break;
@@ -88,34 +90,36 @@ public abstract class Shop
 		}
 		
 		Position signPos = blockChest.getSide(chestFace);
-
-		Block signBlock = blockChest.level.getBlock(signPos);
+		Block blockSign = blockChest.level.getBlock(signPos);
 		
-		if(signBlock.getId()==Block.AIR)
+		// if there is an air-block in front of the Chest
+		if(blockSign.getId()==Block.AIR)
 		{
-			BlockWallSign signInstance = new BlockWallSign();
-			
-			signInstance.level = blockChest.level;
-			signInstance.place(Block.get(Block.WALL_SIGN).toItem(), signBlock, null, BlockFace.fromIndex(blockChest.getDamage()), 0d, 0d, 0d, null);
-		} 
-
+			BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+			blockChest.level.setBlock(signPos, Block.get(Block.WALL_SIGN, blockChest.getDamage()));
+		}
+		
 		PepperShop.ins.getServer().getScheduler().scheduleDelayedTask(new PluginTask<PepperShop>(PepperShop.ins){
 			@Override
 			public void onRun(int currentTick) 
 			{
-				updateSignTextNow();
+				updateSignTextImmediately();
 			}
 		}, delayTicks);
 	}
 	
+	@Deprecated
+	@DeprecationDetails(reason = "renamed", since = "1.3.1", replaceWith = "updateSignTextImmediately()")
 	public void updateSignTextNow()
 	{
-		BlockEntitySign entitySign = getShopEntitySign();
-		
-		String[] bt = PepperShop.ins.localization.signText.get(this);
+		updateSignTextImmediately();
+	}
+	
+	public void updateSignTextImmediately()
+	{
+		BlockEntitySign entitySign = getEntitySign();
 
-		if(entitySign!=null)
-			entitySign.setText(bt[0], bt[1], bt[2], bt[3]);
+		entitySign.setText(PepperShop.ins.localization.signText.get(this));
 	}
 	
 	
@@ -148,16 +152,14 @@ public abstract class Shop
 		Item item = getItem();
 
 		if(shopData.type==ShopType.BUY)
-		{
-			return InvItem.getItemInInventoryCount(getShopEntityChest().getInventory(), item);
-		} else {
-			return getShopEntityChest().getInventory().getFreeSpace(item);
-		}
+			return InvItem.getItemInInventoryCount(getEntityChest().getInventory(), item);
+		
+		return getEntityChest().getInventory().getFreeSpace(item);
 	}
 
-	public void destroyShopSign()
+	public void destroySign()
 	{
-		Block signBlock = getShopEntitySign().getBlock();
+		Block signBlock = getEntitySign().getBlock();
 
 		if(signBlock.getId()==Block.WALL_SIGN)
 		{
@@ -165,20 +167,9 @@ public abstract class Shop
 		}
 	}
 
-	@Deprecated
-	public void destroyShop(Player player)
+	public boolean destroy(Player player)
 	{
-		if (PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).destroyShop(shopData, player))
-		{
-			destroyShopSign();
-		}
-	}
-
-	@Deprecated
-	public void removeShop()
-	{
-		destroyShopSign();
-		PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).removeShop(shopData);
+		return PepperShop.ins.shopsConfig.getShopsConfig(shopData, false).destroyShop(shopData, player);
 	}
 
 	public String convertShopLocationByPos()
@@ -191,6 +182,7 @@ public abstract class Shop
 
 	// static methods
 	
+	@SuppressWarnings("deprecation")
 	public static Shop placeShop(BlockChest chest, float price, Player player)
 	{
 		Shop SHOP = null;
@@ -217,8 +209,8 @@ public abstract class Shop
 			
 			if(PepperShop.ins.ResidencePluginLoaded)
 			{
-				VariousLand chestVLand = VariousLand.getByLoc(chest);
-				VariousLand signVLand = VariousLand.getByLoc(signPos);
+				VirtualAreaManage chestVLand = VirtualAreaManage.getByLoc(chest);
+				VirtualAreaManage signVLand = VirtualAreaManage.getByLoc(signPos);
 
 
 				if(chestVLand!=null)
@@ -252,10 +244,8 @@ public abstract class Shop
 
 				if(itemInHand.getId()!=Item.AIR)
 				{
-					BlockWallSign signInstance = new BlockWallSign();
-
-					signInstance.level = chestBlock.level;
-					signInstance.place(Block.get(Block.WALL_SIGN).toItem(), signBlock, null, BlockFace.fromIndex(chestBlock.getDamage()), 0d, 0d, 0d, player);
+					BlockEntity.createBlockEntity(BlockEntity.SIGN, signPos);
+					chestBlock.level.setBlock(signPos, Block.get(Block.WALL_SIGN, chestBlock.getDamage()));
 
 					ShopData sd = new ShopData();
 
@@ -367,6 +357,7 @@ public abstract class Shop
 			case NORTH: chestFace = BlockFace.SOUTH; break;
 			case WEST: chestFace = BlockFace.EAST; break;
 			case EAST: chestFace = BlockFace.WEST; break;
+			default: break;
 		}
 
 		Position chestPos = signPos.getSide(chestFace);

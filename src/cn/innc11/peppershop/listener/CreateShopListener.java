@@ -1,14 +1,17 @@
 package cn.innc11.peppershop.listener;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.ShopConfig;
+import cn.innc11.peppershop.config.ShopConfig;
 import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.pluginEvent.PlayerCreateShopEvent;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopData;
 import cn.innc11.peppershop.utils.Pair;
 import cn.innc11.peppershop.utils.Quick;
-import cn.innc11.peppershop.variousland.VariousLand;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -22,9 +25,6 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerInteractEvent.Action;
 import cn.nukkit.permission.PermissibleBase;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-
 public class CreateShopListener implements Listener, ShopInteractionTimer
 {
 	public HashMap<String, Pair<Long,Block>> creatingShopPlayers = new HashMap<>();
@@ -34,14 +34,14 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 		boolean allowCreateShop = false;
 
 		// check permission
-		if(VariousLand.existingAreaManagementPlugin())
+		if(VirtualAreaManage.existingAreaManagementPlugin())
 		{
-			VariousLand vl = VariousLand.getByLoc(block);
+			VirtualAreaManage vl = VirtualAreaManage.getByLoc(block);
 
 			if(vl!=null)
 			{
 				boolean hasPerm = false;
-				hasPerm |= vl.hasPermission(player.getName(), VariousLand.Permissions.build);
+				hasPerm |= vl.hasPermission(player.getName(), VirtualAreaManage.Permissions.build);
 				hasPerm |= vl.getOwner().equals(player.getName());
 				hasPerm |= player.isOp() && PepperShop.ins.pluginConfig.operatorIgnoreBuildPermission;
 
@@ -121,7 +121,7 @@ public class CreateShopListener implements Listener, ShopInteractionTimer
 		}
 	}
 
-	// for Creative Mode
+	// for Creative-Mode
 	@EventHandler
 	public void onPlayerBrokeBlock(BlockBreakEvent e)
 	{

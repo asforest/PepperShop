@@ -6,5 +6,5 @@ api: ["1.0.0"]
 load: POSTWORLD
 depend: ["EconomyAPI"]
 softdepend: ["Residence", "Land"]
-website: "https://github.com/innc11/QuickShopX"
+website: "https://github.com/innc11/PepperShop"
 description: "&l&ePepperShop&r, &dRemade by innc11, original author WetABQ"

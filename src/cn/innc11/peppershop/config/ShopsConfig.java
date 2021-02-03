@@ -1,4 +1,4 @@
-package cn.innc11.peppershop.stroage;
+package cn.innc11.peppershop.config;
 
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopData;

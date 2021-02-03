@@ -1,4 +1,4 @@
-package cn.innc11.peppershop.variousland;
+package cn.innc11.peppershop.virtualLand;
 
 import cn.innc11.peppershop.PepperShop;
 import cn.nukkit.level.Position;
@@ -7,7 +7,7 @@ import cn.smallaswater.land.utils.DataTool;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 
-public abstract class VariousLand
+public abstract class VirtualAreaManage
 {
 	private static boolean ResidenceEnabled()
 	{
@@ -24,21 +24,21 @@ public abstract class VariousLand
 		return ResidenceEnabled() || LandEnabled();
 	}
 
-	public static VariousLand getByLoc(Position pos)
+	public static VirtualAreaManage getByLoc(Position pos)
 	{
 		if(ResidenceEnabled())
 		{
 			ClaimedResidence res = Residence.getResidenceManager().getByLoc(pos);
 
 			if(res!=null)
-				return new MappedResidence(res);
+				return new VirtualResidence(res);
 		}
 
 		if(LandEnabled())
 		{
 			LandData land = DataTool.getPlayerLandData(pos);
 			if(land!=null)
-				return new MappedLand(land);
+				return new VirtualLand(land);
 		}
 
 		return null;

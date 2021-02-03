@@ -8,7 +8,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.ShopConfig;
+import cn.innc11.peppershop.config.ShopConfig;
 import cn.innc11.peppershop.shop.ShopData;
 import cn.innc11.peppershop.utils.Pair;
 import cn.innc11.peppershop.utils.Quick;

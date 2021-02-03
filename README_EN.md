@@ -42,6 +42,15 @@ https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
 
 1. Fix the problem that Land plugin cannot be identified
 
+#### PN1.3.2
+
+1. Add support of 1.4.0.0-PN-ALPHA.2(1.16)
+2. Fix the problem that chest can be move by piston
+3. Fix the problem that sometime the placeholder of language can not be replaced
+4. Fix the problem that Sign can not be created automatically
+5. Add the options that can be used to set the size of the queue holding the datapacks to be sent to client
+6. Rename config field: interactionWay -> interactionMethod
+
 ## Authors
 - [innc11](https://github.com/innc11)
 
@@ -89,19 +98,22 @@ Special note: People who have the 'build' permissions in the residence area can 
 version: 7
 
 # Language, support to load custom language files, currently comes with simplified Chinese and English
-language: cn
+language: en
 
 # work with GAC
 # If you can accept to disable the permission detection function, you can open
 work-with-gac: false
 
-# interaction way，Please refer to the "How to use -> Trading" section，Available values: (ChatBar|Both|Interface)
+# interaction method, Please refer to the "How to use -> Trading" section，Available values: (ChatBar|Both|Interface)
 # Recommended to set to 'Both', you can use the interface and chat bar at the same time
-interaction-way: Both
+interaction-method: Both
 
 # The waiting time of the message, the default is 5 seconds, after 5 seconds it will become a normal chat message
 # If the message is sent as a chat message, please increase this value
 interaction-timeout: 5000
+
+# The size of the queue holding the datapacks to be sent to client, double it if hologram-item can not be shown normally (like not be removed when teleport between worlds)
+packet-queue-capacity: 10000
 
 # The speed of the holographic item function to send data packets
 # It is usually recommended to set to 1000 directly, if there is an item deviation, please adjust it to between 30~100
@@ -129,18 +141,22 @@ limit-hopper: true
 use-item-name-translations: false
 ```
 
-## About plugin commands
-Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. You can enter abbreviations for each command. For example, sell can be abbreviated as s, controlpanel can be abbreviated as [cp, c], Although the command changed from /qs to /ps, /qs is also reserved as an alias, if you do not understand this part, you can directly ignore it
+## Plugin commands
 
+Use '/ps help' to output all help information. If you are a operator, additional management commands will be displayed. 
 
-## About GAC plugin
-I have tried several ways to be compatible with GAC, but they have no effect. If you have installed GAC, please set it up in config.yml after the first startup to force coexistence with GAC, otherwise the plugin It will not load. BTW, pay attention to the output information about this plugin in the console for the first startup.
+## Working with GAC plugin
 
-## About Hoppers
-Please do not place the shop on the outermost layer of the Residence area (including six directions). People with ulterior motives may use a hopper to stuff your chests with useless items(please place it at least from the edge On the second layer)
+I have tried several ways to be compatible with GAC, but it doesn't work. If you have installed the GAC, set `work-with-gac: true` in the `config.yml` after the first startup.
 
-## About importing data from QuickShopx
-This plug-in supports quickshopx's shop-data files (including all players' shop data), that is, just copy the 'shops' folder to the folder of this plugin. This plugin can read them, but the configuration file, language file, and item-name-translation file are not supported. , You need to use the files provided in this page, this section will take a few minutes to reconfigure, almost no big impact
+## Importing data from QuickShopx
 
-## About Land plugin：
-The Land plugin does not have'build' permission. I made a simple conversion. When you have both the'place' permission and the'break' permission, you are equivalent to having the'build' permission. Do not give these two permissions to strangers. In addition, in the mechanism of Land , OP defaults to all permissions of all residences, then op can open all chests by default
+You can import the data-folder of the quickshopx plugin through copying the `shops` folder to inside `PepperShop` folder
+
+## Compat with Land plugin：
+
+The Land plugin does not have `build` permission natively. 
+
+You will have the `build` permission if you have both the `place` and the `break` permission.
+
+In addition, with the mechanism of Land plugin, OPs possess all the permissions of Land plugin by default , which means Ops can open all chests.

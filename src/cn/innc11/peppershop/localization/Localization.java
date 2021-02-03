@@ -1,7 +1,7 @@
 package cn.innc11.peppershop.localization;
 
 import cn.innc11.peppershop.PepperShop;
-import cn.innc11.peppershop.stroage.BaseConfig;
+import cn.innc11.peppershop.config.BaseConfig;
 import cn.innc11.peppershop.shop.Shop;
 import cn.innc11.peppershop.shop.ShopType;
 import cn.innc11.peppershop.utils.Quick;
@@ -102,7 +102,7 @@ public class Localization extends BaseConfig
 			String reg = argsPair[i*2].toString();
 			reg = "\\{" + reg;
 			reg = reg + "\\}";
-			String replacement = argsPair[i*2+1].toString();
+			String replacement = String.valueOf(argsPair[i*2+1]);
 			cookedStr = cookedStr.replaceAll(reg, replacement);
 		}
 

@@ -1,8 +1,8 @@
 package cn.innc11.peppershop.form;
 
 import cn.innc11.peppershop.PepperShop;
+import cn.innc11.peppershop.config.PluginConfig;
 import cn.innc11.peppershop.localization.LangNodes;
-import cn.innc11.peppershop.stroage.PluginConfig;
 import cn.innc11.peppershop.utils.Quick;
 import cn.nukkit.Player;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;

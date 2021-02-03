@@ -9,10 +9,9 @@ import cn.innc11.peppershop.localization.LangNodes;
 import cn.innc11.peppershop.shop.BuyShop;
 import cn.innc11.peppershop.shop.SellShop;
 import cn.innc11.peppershop.shop.Shop;
-import cn.innc11.peppershop.utils.Quick;
 import cn.innc11.peppershop.utils.Pair;
-import cn.innc11.peppershop.variousland.VariousLand;
-
+import cn.innc11.peppershop.utils.Quick;
+import cn.innc11.peppershop.virtualLand.VirtualAreaManage;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -46,7 +45,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 				
 				PepperShop.ins.hologramListener.addShopItemEntity(Server.getInstance().getOnlinePlayers().values(), shop.shopData);
 
-				switch (PepperShop.ins.pluginConfig.interactionWay)
+				switch (PepperShop.ins.pluginConfig.interactionMethod)
 				{
 					case Both:
 					{
@@ -155,14 +154,14 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 			{
 				boolean allow = true;
 				
-				if(VariousLand.existingAreaManagementPlugin())
+				if(VirtualAreaManage.existingAreaManagementPlugin())
 				{
-					VariousLand vl = VariousLand.getByLoc(e.getBlock());
+					VirtualAreaManage vl = VirtualAreaManage.getByLoc(e.getBlock());
 
 					if(vl!=null)
 					{
 						boolean hasPerm = false;
-						hasPerm |= vl.hasPermission(player.getName(), VariousLand.Permissions.build);
+						hasPerm |= vl.hasPermission(player.getName(), VirtualAreaManage.Permissions.build);
 						hasPerm |= vl.getOwner().equals(player.getName());
 						hasPerm |= (player.isOp() && PepperShop.ins.pluginConfig.operatorIgnoreBuildPermission);
 
@@ -182,7 +181,7 @@ public class ShopInteractionListener implements Listener, ShopInteractionTimer
 				
 				if(allow)
 				{
-					if(PepperShop.ins.shopsConfig.getShopsConfig(shop, false).destroyShop(shop.shopData, player))
+					if(shop.destroy(player))
 					{
 						PepperShop.ins.hologramListener.removeItemEntity(Server.getInstance().getOnlinePlayers().values(), shop.shopData);
 						if(isSign) e.setDrops(new Item[0]);

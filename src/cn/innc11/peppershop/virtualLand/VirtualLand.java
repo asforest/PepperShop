@@ -1,13 +1,13 @@
-package cn.innc11.peppershop.variousland;
+package cn.innc11.peppershop.virtualLand;
 
 import cn.smallaswater.land.lands.data.LandData;
 import cn.smallaswater.land.players.LandSetting;
 
-public class MappedLand extends VariousLand
+public class VirtualLand extends VirtualAreaManage
 {
 	public LandData land;
 
-	public MappedLand(LandData land)
+	public VirtualLand(LandData land)
 	{
 		this.land = land;
 	}
