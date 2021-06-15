@@ -1,5 +1,7 @@
 # [PepperShop](https://github.com/innc11/PepperShop)
 
+> Stopped maintenance!
+
 [English](README_EN.md)
 
 一个Nukkit插件,基于 [QuickShopX](https://github.com/innc11/QuickShopX) 开发,QuickShopX又是基于是由原作者 [WetABQ](https://github.com/WetABQ) 的QuickShop插件所开发而来
