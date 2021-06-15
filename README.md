@@ -1,6 +1,6 @@
 # [PepperShop](https://github.com/innc11/PepperShop)
 
-## Stopped maintenance!
+## Stopped maintenance! / 停止更新!
 
 [English](README_EN.md)
 
