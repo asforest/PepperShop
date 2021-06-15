@@ -1,5 +1,7 @@
 # [PepperShop](https://github.com/innc11/QuickShopX)
 
+## Stopped maintenance now !
+
 A plugin for Nukkit, Based on the QuickShopX(original author [WetABQ](https://github.com/WetABQ)) 
 
 https://www.mcbbs.net/forum.php?mod=viewthread&tid=1057414
